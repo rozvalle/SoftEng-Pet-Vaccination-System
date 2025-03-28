@@ -1,68 +1,77 @@
-import React, { useState } from "react";
-import { Table, Input, Button, Popconfirm, Space } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import React, { useState } from 'react';
+import { Layout, Button, Table, Modal, Form, Input } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
-const { Search } = Input;
+const { Content } = Layout;
 
 const ManageUsers = () => {
-  const [searchText, setSearchText] = useState("");
+  const [users, setUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form] = Form.useForm();
+  const [editingUser, setEditingUser] = useState(null);
 
-  // Sample User Data
-  const [users, setUsers] = useState([
-    { key: "1", name: "Admin One", role: "Admin", email: "admin1@example.com" },
-    { key: "2", name: "John Doe", role: "User", email: "john@example.com" },
-    { key: "3", name: "Jane Smith", role: "Editor", email: "jane@example.com" },
-    { key: "4", name: "Mark Brown", role: "User", email: "mark@example.com" },
-  ]);
-
-  // Filter users based on search input
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      user.role.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  // Delete User
-  const handleDelete = (key) => {
-    setUsers(users.filter((user) => user.key !== key));
-  };
-
-  // Antd Table Columns
   const columns = [
-    { title: "Name", dataIndex: "name", key: "name", sorter: (a, b) => a.name.localeCompare(b.name) },
-    { title: "Role", dataIndex: "role", key: "role", sorter: (a, b) => a.role.localeCompare(b.role) },
-    { title: "Email", dataIndex: "email", key: "email" },
+    { title: 'UID', dataIndex: 'uidNumber', key: 'uidNumber' },
+    { title: 'First Name', dataIndex: 'firstName', key: 'firstName' },
+    { title: 'Last Name', dataIndex: 'lastName', key: 'lastName' },
+    { title: 'Middle Name', dataIndex: 'middleName', key: 'middleName' },
+    { title: 'Username', dataIndex: 'username', key: 'username' },
     {
-      title: "Actions",
-      key: "actions",
+      title: 'Actions',
+      key: 'actions',
       render: (_, record) => (
-        <Space>
-          <Button icon={<EditOutlined />} type="primary">Edit</Button>
-          <Popconfirm title="Are you sure?" onConfirm={() => handleDelete(record.key)}>
-            <Button icon={<DeleteOutlined />} type="danger">Delete</Button>
-          </Popconfirm>
-        </Space>
+        <>
+          <Button icon={<InfoCircleOutlined />} style={{ marginRight: 8 }} />
+          <Button icon={<EditOutlined />} style={{ marginRight: 8 }} />
+          <Button icon={<DeleteOutlined />} danger />
+        </>
       ),
     },
   ];
 
   return (
-    <div style={{ padding: 20 }}>
-      <Search
-        placeholder="Search by name or role"
-        allowClear
-        enterButton="Search"
-        size="large"
-        onSearch={(value) => setSearchText(value)}
-        style={{ marginBottom: 16, width: 300 }}
-      />
-      <Table
-        columns={columns}
-        dataSource={filteredUsers}
-        pagination={{ pageSize: 5 }}
-        bordered
-      />
-    </div>
+    <Layout style={{ minHeight: "100vh", background: "#fff" }}>
+      <Layout style={{ ypadding: '24px', background: "#fff" }}>
+        <Content>
+          <h2>Manage Users</h2>
+          <Button type='primary' icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+            Add User
+          </Button>
+          <Table bordered columns={columns} dataSource={users} rowKey='uidNumber' style={{ marginTop: 20, }} />
+        </Content>
+      </Layout>
+
+      <Modal
+        title={editingUser ? 'Edit User' : 'Add User'}
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
+      >
+        <Form form={form} layout='vertical'>
+          <Form.Item name='uidNumber' label='UID Number' rules={[{ required: true }]}> 
+            <Input />
+          </Form.Item>
+          <Form.Item name='firstName' label='First Name' rules={[{ required: true }]}> 
+            <Input />
+          </Form.Item>
+          <Form.Item name='lastName' label='Last Name' rules={[{ required: true }]}> 
+            <Input />
+          </Form.Item>
+          <Form.Item name='middleName' label='Middle Name'> 
+            <Input />
+          </Form.Item>
+          <Form.Item name='username' label='Username' rules={[{ required: true }]}> 
+            <Input />
+          </Form.Item>
+          <Form.Item name='password' label='Password' rules={[{ required: true }]}> 
+            <Input.Password />
+          </Form.Item>
+          <Button type='primary' htmlType='submit' block>
+            {editingUser ? 'Update' : 'Add'} User
+          </Button>
+        </Form>
+      </Modal>
+    </Layout>
   );
 };
 

@@ -27,7 +27,7 @@ export default function Sidebar({ collapsed, setCollapsed }) { // ✅ Accept pro
     <Sider
       collapsible
       collapsed={collapsed}
-      onCollapse={toggleSidebar} // ✅ Controls collapse state
+      onCollapse={toggleSidebar}
       width={300}
       collapsedWidth={80}
       style={{

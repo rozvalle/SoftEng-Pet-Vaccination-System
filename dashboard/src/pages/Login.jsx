@@ -35,7 +35,7 @@ export default function Login() {
             <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
                 name="username"
-                rules={[{ required: true, message: "Please enter your username!" }]}
+                rules={[{ required: false, message: "Please enter your username!" }]}
             >
                 <Input prefix={<UserOutlined />} placeholder="Username" />
             </Form.Item>
