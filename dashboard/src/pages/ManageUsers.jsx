@@ -4,7 +4,6 @@ import Sidebar from './Sidebar'
 function ManageUsers() {
   return (
     <div>
-      <Sidebar />
     </div>
   )
 }
