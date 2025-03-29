@@ -112,6 +112,29 @@ app.put("/users/:id", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const [rows] = await db.query("SELECT * FROM tbl_users WHERE user_name = ?", [username]);
+
+    if (rows.length === 0) {
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    const user = rows[0];
+
+    if (user.user_password !== password) {
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    res.status(200).json({ message: "Login successful", token: "sample-token-123" }); 
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
