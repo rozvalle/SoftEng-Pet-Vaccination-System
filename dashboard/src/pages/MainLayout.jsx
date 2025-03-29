@@ -22,7 +22,7 @@ export default function MainLayout() {
           transition: "margin-left 0.3s ease",
         }}
       >
-        <Content style={{ padding: 24, background: "#fff", minHeight: "100vh" }}>
+        <Content style={{ background: "#fff", minHeight: "100vh" }}>
           <Outlet />
         </Content>
       </Layout>

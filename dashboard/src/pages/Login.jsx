@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import loginimage from "../assets/banner3.jpg";
+import logo from "../assets/furcare.png"; 
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -28,10 +30,12 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="login-image">
-        {/* <img src={loginimage} alt="Login" style={{ width: "100%", height: "100vh", objectFit: "cover" }} /> */}
+         <img src={loginimage} alt="Login" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
       </div>
       <div className="login-form">
-        <h2>Sign In</h2>
+        <div className="login-logo">
+          <img src={logo} alt="Logo" style={{ width:"300px"}} />
+        </div>
 
         <Form layout="vertical" onFinish={handleLogin}>
           <Form.Item
@@ -51,7 +55,7 @@ export default function Login() {
             <Checkbox>Remember Me</Checkbox>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }} loading={loading}>
+            <Button type="primary" htmlType="submit" style={{ width: "100%", backgroundColor:"#E07A5F"}} loading={loading}>
               Log In
             </Button>
           </Form.Item>

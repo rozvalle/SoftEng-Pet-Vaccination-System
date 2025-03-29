@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm } from "antd";
+import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../styles/ManageUsers.css"; // Adjust the path as necessary
 
@@ -130,9 +130,10 @@ function ManageUsers() {
   ];
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "#fff" }}>
+    <Layout style={{ minHeight: "100vh", background: "#fff", padding: 24, }}>
       <Content style={{ padding: "0px", background: "#fff" }}>
         <h1 className="h2-user">Manage Users</h1>
+        <Divider style={{ margin: "20px 0", borderColor: "#ddd" }} />
         <div className="table-top-parent">
           <div className="table-top-button">
             <Button

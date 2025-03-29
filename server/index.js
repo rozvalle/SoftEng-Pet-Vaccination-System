@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql2/promise"); // Use promise-based MySQL2
+const mysql = require("mysql2/promise");
 const cors = require("cors");
 
 
@@ -7,12 +7,11 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173", // ✅ Allow requests from frontend
+  origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Database connection (Use a pool for better performance)
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -33,7 +32,6 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// Add a new user
 app.post("/users", async (req, res) => {
   const { user_fn, user_ln, user_mn, username, password } = req.body;
 

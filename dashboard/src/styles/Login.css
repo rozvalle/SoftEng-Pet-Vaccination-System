@@ -1,17 +1,29 @@
 .login-container {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+    background: linear-gradient(to right, #FAF3E0, #FFFFFF);
 }
 
 .login-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     margin: auto;
     padding: 20px;
 }
 
+.login-logo {
+    width: 100%;
+    display: block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: -150px;
+
+}
+
 .login-image {
-    width: 50%;
+    width: 60%;
     height: 100vh;
     /*
     background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGxvZ298ZW58MHx8fHwxNjg5NTY1NzA3&ixlib=rb-4.0.3&q=80&w=1080');
@@ -25,9 +37,5 @@
 
 .login-form h2 {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-body {
-    overflow: hidden;
+    margin-bottom: 40px;
 }
