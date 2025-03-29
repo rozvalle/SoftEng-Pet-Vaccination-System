@@ -10,6 +10,8 @@ function ManageUsers() {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -19,6 +21,7 @@ function ManageUsers() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get("http://localhost:5000/users");
+      setFilteredUsers(response.data);
       setUsers(response.data);
     } catch (error) {
       message.error("Error fetching users");
@@ -67,6 +70,17 @@ function ManageUsers() {
     await axios.delete(`http://localhost:5000/users/${user_id}`);
     message.success("User deleted successfully");
     fetchUsers();
+  };
+
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filtered = users.filter(
+      (user) =>
+        user.user_fn.toLowerCase().includes(value.toLowerCase()) ||
+        user.user_ln.toLowerCase().includes(value.toLowerCase()) ||
+        user.user_name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredUsers(filtered);
   };
 
   const columns = [
@@ -119,21 +133,35 @@ function ManageUsers() {
     <Layout style={{ minHeight: "100vh", background: "#fff" }}>
       <Content style={{ padding: "0px", background: "#fff" }}>
         <h1 className="h2-user">Manage Users</h1>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => {
-            setEditingUser(null);
-            form.resetFields();
-            setIsModalOpen(true);
-          }}
-        >
-          Add User
-        </Button>
+        <div className="table-top-parent">
+          <div className="table-top-button">
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                setEditingUser(null);
+                form.resetFields();
+                setIsModalOpen(true);
+              }}
+            >
+              Add User
+          </Button>
+          </div>
+          <div className="table-top-search">
+          <Input.Search
+              placeholder="Search users..."
+              onChange={(e) => handleSearch(e.target.value)}
+              value={searchText}
+              style={{ width: 300 }}
+              allowClear
+            />
+        </div>
+        </div>
+        
         <Table
           bordered
           columns={columns}
-          dataSource={users}
+          dataSource={filteredUsers}
           rowKey="user_id"
           style={{ marginTop: 20 }}
           pagination={{ pageSize: 5 }}

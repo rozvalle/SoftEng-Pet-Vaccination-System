@@ -1,3 +1,20 @@
 .h2-users {
     margin-top: 0px;
 }
+
+.table-top-parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.table-top-search {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.table-top-button {
+    display: flex;
+    justify-content: flex-start;
+}
