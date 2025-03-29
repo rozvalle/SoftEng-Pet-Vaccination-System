@@ -16,9 +16,9 @@ export default function Sidebar({ collapsed, setCollapsed }) { // ✅ Accept pro
 
   const menuItems = [
     { key: "/", icon: <HomeOutlined />, label: <Link to="/">Dashboard</Link> },
+    { key: "/manageusers", icon: <UnorderedListOutlined />, label: <Link to="/manageusers">Manage Users</Link> },
     { key: "/profile", icon: <UserOutlined />, label: <Link to="/profile">Profile</Link> },
     { key: "/settings", icon: <SettingOutlined />, label: <Link to="/settings">Settings</Link> },
-    { key: "/manageusers", icon: <UnorderedListOutlined />, label: <Link to="/manageusers">Manage Users</Link> },
     { key: "divider", type: "divider", style: { borderTop: "2px solid rgba(255, 255, 255, 0.2)", margin: "12px 0" } },
     { key: "/login", icon: <LogoutOutlined />, label: <Link to="/login">Logout</Link> },
   ];

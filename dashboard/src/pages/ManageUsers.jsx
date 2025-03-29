@@ -31,22 +31,27 @@ function ManageUsers() {
         user_ln: values.lastname,
         user_mn: values.middlename,
         username: values.username,
-        password: values.password,
+        password: values.password
       };
-
+  
+      console.log("🟢 Sending update request with:", userData);
+  
+      let response;
       if (editingUser) {
-        await axios.put(`http://localhost:5000/users/${editingUser.user_id}`, userData);
-        message.success("User updated successfully");
+        response = await axios.put(`http://localhost:5000/users/${editingUser.user_id}`, userData);
       } else {
-        await axios.post("http://localhost:5000/users", userData);
-        message.success("User added successfully");
+        response = await axios.post("http://localhost:5000/users", userData);
       }
-
-      setIsModalOpen(false);
-      fetchUsers();
-      form.resetFields();
+  
+      console.log("🟢 Server Response:", response.data);
+      message.success(response.data.message || "User saved successfully");
+  
+      await fetchUsers();
+      setIsModalOpen(false); 
+      form.resetFields(); 
     } catch (error) {
-      message.error("Error saving user");
+      console.error("❌ Error saving user:", error);
+      message.error(error.response?.data?.error || "Error saving user");
     }
   };
 
@@ -71,9 +76,9 @@ function ManageUsers() {
     { title: "Username", dataIndex: "user_name", key: "user_name" },
     {
       title: "Password",
-      dataIndex: "password",
-      key: "password",
-      render: (password) => "•".repeat(password?.length || 8),
+      dataIndex: "user_password",
+      key: "user_password",
+      render: (user_password) => "•".repeat(user_password?.length),
     },
     {
       title: "Actions",
@@ -90,7 +95,7 @@ function ManageUsers() {
                 lastname: record.user_ln,
                 middlename: record.user_mn,
                 username: record.user_name,
-                password: record.password,
+                password: record.user_password,
               });
               setIsModalOpen(true);
             }}
@@ -153,7 +158,7 @@ function ManageUsers() {
           <Form.Item name="username" label="Username" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="password" label="Password" rules={[{ required: !editingUser }]}>
+          <Form.Item name="password" label="Password" rules={[{ required: true }]}>
             <Input.Password />
           </Form.Item>
           <Button type="primary" htmlType="submit" block>
