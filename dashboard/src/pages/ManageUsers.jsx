@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import "../styles/ManageUsers.css"; // Adjust the path as necessary
 
 const { Content } = Layout;
 
@@ -116,8 +117,8 @@ function ManageUsers() {
 
   return (
     <Layout style={{ minHeight: "100vh", background: "#fff" }}>
-      <Content style={{ padding: "24px", background: "#fff" }}>
-        <h2>Manage Users</h2>
+      <Content style={{ padding: "0px", background: "#fff" }}>
+        <h1 className="h2-user">Manage Users</h1>
         <Button
           type="primary"
           icon={<PlusOutlined />}
@@ -140,31 +141,35 @@ function ManageUsers() {
       </Content>
 
       <Modal
-        title={editingUser ? "Edit User" : "Add User"}
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
-        <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item name="firstname" label="First Name" rules={[{ required: true }]}>
+      <h2 style={{ marginBottom: "16px" }}>
+        {editingUser ? "Edit User" : "Add User"}
+      </h2>
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+          <Form.Item name="firstname" label="First Name" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
             <Input />
           </Form.Item>
-          <Form.Item name="lastname" label="Last Name" rules={[{ required: true }]}>
+          <Form.Item name="lastname" label="Last Name" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
             <Input />
           </Form.Item>
-          <Form.Item name="middlename" label="Middle Name">
+          <Form.Item name="middlename" label="Middle Name" style={{ marginBottom: "8px" }}>
             <Input />
           </Form.Item>
-          <Form.Item name="username" label="Username" rules={[{ required: true }]}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
+          <Form.Item name="username" label="Username" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
             <Input />
           </Form.Item>
-          <Form.Item name="password" label="Password" rules={[{ required: true }]}>
+          <Form.Item name="password" label="Password" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
             <Input.Password />
           </Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            {editingUser ? "Update" : "Add"} User
-          </Button>
-        </Form>
+        </div>
+        <Button type="primary" htmlType="submit" block>
+          {editingUser ? "Update" : "Add"} User
+        </Button>
+      </Form>
       </Modal>
     </Layout>
   );
