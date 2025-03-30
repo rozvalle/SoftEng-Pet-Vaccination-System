@@ -67,18 +67,18 @@ export default function Dashboard() {
       </Carousel>
       <Layout style={{ padding: "24px", gap: "0px", backgroundColor: "#fff" }}>
       <h1 className="dashboard-header">Dashboard</h1>
-      <Row justify="center" gutter={[10, 30]}>
+      <Row justify="left" style={{ gap: "10px" }}>
         {features.map((feature, index) => (
-           <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>
             <Card
               hoverable
               className="feature-card"
               style={{
                 textAlign: "left",
                 borderRadius: "10px",
-                width: "100%",
                 background: feature.gradient,
                 color: "white",
+                width: "250px", /* Set fixed width */
+                height: "200px", /* Adjust height if needed */
                 transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s",
               }}
               onClick={() => navigate(feature.path)}
@@ -91,7 +91,6 @@ export default function Dashboard() {
               </Title>
               <Text style={{ color: "white", opacity: 0.9 }}>{feature.description}</Text>
             </Card>
-          </Col>
         ))}
       </Row>
       </Layout>
