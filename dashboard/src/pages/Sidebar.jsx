@@ -1,6 +1,6 @@
 import { Layout, Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { UserOutlined, HomeOutlined, SettingOutlined, LogoutOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { UserOutlined, HomeOutlined, SettingOutlined, LogoutOutlined, UnorderedListOutlined, DashboardOutlined } from "@ant-design/icons";
 import logo from "../assets/verstappen.png"; // Adjust path if necessary
 
 const { Sider } = Layout;
@@ -20,7 +20,8 @@ export default function Sidebar({ collapsed, setCollapsed }) { // ✅ Accept pro
   };
 
   const menuItems = [
-    { key: "/", icon: <HomeOutlined />, label: <Link to="/">Dashboard</Link> },
+    { key: "/home", icon: <HomeOutlined />, label: <Link to="/home">Home</Link> },
+    { key: "/", icon: <DashboardOutlined />, label: <Link to="/">Dashboard</Link> },
     { key: "/manageusers", icon: <UnorderedListOutlined />, label: <Link to="/manageusers">Manage Users</Link> },
     { key: "/profile", icon: <UserOutlined />, label: <Link to="/profile">Profile</Link> },
     { key: "/settings", icon: <SettingOutlined />, label: <Link to="/settings">Settings</Link> },

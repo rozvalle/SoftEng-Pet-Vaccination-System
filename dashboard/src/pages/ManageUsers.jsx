@@ -97,7 +97,7 @@ function ManageUsers() {
       render: (user_password) => "•".repeat(user_password?.length),
     },
     {
-      title: "Actions",
+      title: "",
       key: "actions",
       render: (_, record) => (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -132,20 +132,22 @@ function ManageUsers() {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Layout className="page-header" style={{ 
+     {/* <Layout className="page-header" style={{ 
            height: "80px", 
            minHeight: "80px",
            maxHeight: "80px",
            zIndex: 10,
-           overflow: "hidden", background: "#fff", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", 
+           overflow: "hidden", background: "#fff", 
+           //boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", 
            textAlign: "center",
         }}
-      >
+      > 
         <Content>
           <img src={logo} style={{ height:"80px", marginLeft:"-50px" }} />
         </Content>
       </Layout>
-      <Layout style={{ background: "#f4f4f4", padding: 35, }}>
+      */}
+      <Layout style={{ background: "#f4f4f4", padding: 0, }}>
         <Content style={{ 
           overflow: "hidden", // Prevents overflow
           padding: 35, background: "#fff", borderRadius: "6px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", }}>
@@ -169,7 +171,8 @@ function ManageUsers() {
                   Add User
               </Button>
             </div>
-          </div>      
+          </div>
+          <p>Manage user accounts in this page</p>
           <Divider style={{borderColor: "#ddd" }} />
           <Input.Search
                   placeholder="Search users..."
@@ -187,8 +190,8 @@ function ManageUsers() {
               marginTop: 20,
               overflow: "hidden",
             }}
-            pagination={{ pageSize: 3 }}
-            rowClassName={(record, index) =>
+            pagination={{ pageSize: 5 }}
+            rowClassName={(index) =>
               index % 2 === 0 ? "table-row-light" : "table-row-dark"
             }
           />
