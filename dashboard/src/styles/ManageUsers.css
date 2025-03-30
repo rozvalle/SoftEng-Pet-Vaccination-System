@@ -12,9 +12,30 @@
 .table-top-search {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
-.table-top-button {
+.header-user {
     display: flex;
     justify-content: flex-start;
 }
+
+.header-user h1 {
+    margin: 0;
+}
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  border-right: none !important; /* Removes vertical lines */
+}
+
+/* Keep horizontal lines */
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.ant-divider {
+    margin-left: -35px; /* Shift left to counter layout padding */
+    margin-right: -35px; /* Shift right equally */
+    width: calc(100% + 70px); /* Extend width beyond the padding */
+  }

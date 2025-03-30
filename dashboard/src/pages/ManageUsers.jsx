@@ -3,6 +3,7 @@ import axios from "axios";
 import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../styles/ManageUsers.css"; // Adjust the path as necessary
+import logo from "../assets/furcare.png"; // Adjust the path as necessary
 
 const { Content } = Layout;
 
@@ -130,43 +131,67 @@ function ManageUsers() {
   ];
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "#fff", padding: 24, }}>
-      <Content style={{ padding: "0px", background: "#fff" }}>
-        <h1 className="h2-user">Manage Users</h1>
-        <Divider style={{ margin: "20px 0", borderColor: "#ddd" }} />
-        <div className="table-top-parent">
-          <div className="table-top-button">
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => {
-                setEditingUser(null);
-                form.resetFields();
-                setIsModalOpen(true);
-              }}
-            >
-              Add User
-          </Button>
-          </div>
-          <div className="table-top-search">
+    <Layout style={{ minHeight: "100vh" }}>
+      <Layout className="page-header" style={{ 
+           height: "80px", 
+           minHeight: "80px",
+           maxHeight: "80px",
+           zIndex: 10,
+           overflow: "hidden", background: "#fff", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", 
+           textAlign: "center",
+        }}
+      >
+        <Content>
+          <img src={logo} style={{ height:"80px", marginLeft:"-50px" }} />
+        </Content>
+      </Layout>
+      <Layout style={{ background: "#f4f4f4", padding: 35, }}>
+        <Content style={{ 
+          overflow: "hidden", // Prevents overflow
+          padding: 35, background: "#fff", borderRadius: "6px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", }}>
+          <div className="table-top-parent">
+            <div className="header-user">
+              <h1 className="h2-user">Manage Users</h1>
+            </div>
+            <div className="table-top-search">
+              <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  style={{
+                    height: "40px",
+                  }}
+                  onClick={() => {
+                    setEditingUser(null);
+                    form.resetFields();
+                    setIsModalOpen(true);
+                  }}
+                >
+                  Add User
+              </Button>
+            </div>
+          </div>      
+          <Divider style={{borderColor: "#ddd" }} />
           <Input.Search
-              placeholder="Search users..."
-              onChange={(e) => handleSearch(e.target.value)}
-              value={searchText}
-              style={{ width: 300 }}
-              allowClear
-            />
-        </div>
-        </div>
-        
-        <Table
-          bordered
-          columns={columns}
-          dataSource={filteredUsers}
-          rowKey="user_id"
-          style={{ marginTop: 20 }}
-          pagination={{ pageSize: 5 }}
-        />
+                  placeholder="Search users..."
+                  onChange={(e) => handleSearch(e.target.value)}
+                  value={searchText}
+                  style={{ width: 300 }}
+                  allowClear
+                />
+          <Table
+            bordered
+            columns={columns}
+            dataSource={filteredUsers}
+            rowKey="user_id"
+            style={{
+              marginTop: 20,
+              overflow: "hidden",
+            }}
+            pagination={{ pageSize: 3 }}
+            rowClassName={(record, index) =>
+              index % 2 === 0 ? "table-row-light" : "table-row-dark"
+            }
+          />
       </Content>
 
       <Modal
@@ -198,8 +223,9 @@ function ManageUsers() {
         <Button type="primary" htmlType="submit" block>
           {editingUser ? "Update" : "Add"} User
         </Button>
-      </Form>
-      </Modal>
+        </Form>
+        </Modal>
+      </Layout>
     </Layout>
   );
 }
