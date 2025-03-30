@@ -151,9 +151,18 @@ function ManageUsers() {
         <Content style={{ 
           overflow: "hidden",
           padding: 35, background: "#fff", borderRadius: "6px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", }}>
+          <h1 className="h1-user">Manage Users</h1>
+          <p>Manage user accounts in this page</p>
+          <Divider style={{borderColor: "#ddd" }} />
           <div className="table-top-parent">
             <div className="header-user">
-              <h1 className="h2-user">Manage Users</h1>
+              <Input.Search
+                placeholder="Search users..."
+                onChange={(e) => handleSearch(e.target.value)}
+                value={searchText}
+                style={{ width: 300 }}
+                allowClear
+                />
             </div>
             <div className="table-top-search">
               <Button
@@ -174,15 +183,6 @@ function ManageUsers() {
               </Button>
             </div>
           </div>
-          <p>Manage user accounts in this page</p>
-          <Divider style={{borderColor: "#ddd" }} />
-          <Input.Search
-                  placeholder="Search users..."
-                  onChange={(e) => handleSearch(e.target.value)}
-                  value={searchText}
-                  style={{ width: 300 }}
-                  allowClear
-                />
           <Table
             bordered
             columns={columns}

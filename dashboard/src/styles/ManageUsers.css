@@ -1,5 +1,6 @@
-.h2-users {
-    margin-top: 0px;
+.h1-user {
+    margin: 0;
+    padding: 0;
 }
 
 .table-top-parent {
@@ -50,7 +51,7 @@
     background-color: #001529;
     border-color: #001529;
   }
-  
+
 .ant-btn-primary:focus {
   background-color: #001529;
   border-color: #001529;

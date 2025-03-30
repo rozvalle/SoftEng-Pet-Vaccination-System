@@ -57,8 +57,8 @@ export default function Login() {
             <Checkbox>Remember Me</Checkbox>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%", backgroundColor:"#E07A5F", borderColor:"#E07A5F" }} loading={loading}>
-              Log In
+            <Button type="primary" htmlType="submit" style={{ width: "100%", backgroundColor:"#E07A5F", borderColor:"#E07A5F", height:"40px", borderRadius:"50px"}} loading={loading}>
+              Login
             </Button>
           </Form.Item>
         </Form>
