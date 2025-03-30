@@ -149,7 +149,7 @@ function ManageUsers() {
       */}
       <Layout style={{ background: "#f4f4f4", padding: 0, }}>
         <Content style={{ 
-          overflow: "hidden", // Prevents overflow
+          overflow: "hidden",
           padding: 35, background: "#fff", borderRadius: "6px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", }}>
           <div className="table-top-parent">
             <div className="header-user">
@@ -161,6 +161,8 @@ function ManageUsers() {
                   icon={<PlusOutlined />}
                   style={{
                     height: "40px",
+                    backgroundColor: "#001529", 
+                    borderColor: "#001529"
                   }}
                   onClick={() => {
                     setEditingUser(null);
@@ -223,7 +225,7 @@ function ManageUsers() {
             <Input.Password />
           </Form.Item>
         </div>
-        <Button type="primary" htmlType="submit" block>
+        <Button type="primary" htmlType="submit" block style={{ backgroundColor: "#001529", borderColor: "#001529" }}>
           {editingUser ? "Update" : "Add"} User
         </Button>
         </Form>

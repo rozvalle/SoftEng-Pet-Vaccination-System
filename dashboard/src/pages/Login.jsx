@@ -31,11 +31,12 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="login-image">
-         <img src={loginimage} alt="Login" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
+         { /* <img src={loginimage} alt="Login" style={{ width: "100%", height: "100vh", objectFit: "cover" }} /> */}
       </div>
       <div className="login-form">
         <div className="login-logo">
           <img src={logo} alt="Logo" style={{ width:"300px"}} />
+          <p>Welcome back to FurCare!</p>
         </div>
 
         <Form layout="vertical" onFinish={handleLogin}>
@@ -56,7 +57,7 @@ export default function Login() {
             <Checkbox>Remember Me</Checkbox>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%", backgroundColor:"#E07A5F"}} loading={loading}>
+            <Button type="primary" htmlType="submit" style={{ width: "100%", backgroundColor:"#E07A5F", borderColor:"#E07A5F" }} loading={loading}>
               Log In
             </Button>
           </Form.Item>

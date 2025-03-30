@@ -45,8 +45,13 @@
     border-color: #001529;
   }
   
-.ant-btn-primary:hover,
+
+.ant-btn-primary:hover {
+    background-color: #001529;
+    border-color: #001529;
+  }
+  
 .ant-btn-primary:focus {
-background-color: #001529;
-border-color: #001529;
+  background-color: #001529;
+  border-color: #001529;
 }

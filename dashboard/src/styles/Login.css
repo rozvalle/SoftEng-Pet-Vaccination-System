@@ -19,16 +19,18 @@
     justify-content: center;
     align-items: center;
     margin-top: -150px;
+}
 
+.login-logo p {
+    margin-bottom: 50px;
 }
 
 .login-image {
-    width: 60%;
+    width: 50%;
     height: 100vh;
-    /*
-    background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGxvZ298ZW58MHx8fHwxNjg5NTY1NzA3&ixlib=rb-4.0.3&q=80&w=1080');
-    */
-    background-color: #131335;
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-image: url('../assets/banner3.jpg');
 }
 
 .password-field {
