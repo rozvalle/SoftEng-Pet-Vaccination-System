@@ -17,9 +17,10 @@ export default function Login() {
       const response = await axios.post("http://localhost:5000/login", values);
 
       message.success("Login successful!");
-      localStorage.setItem("isAuthenticated", true);
+      sessionStorage.setItem("isAuthenticated", true);
+      sessionStorage.setItem("username", values.username);
 
-      navigate("/"); // ✅ Redirect after login
+      navigate("/"); 
     } catch (error) {
       message.error(error.response?.data?.error || "Invalid username or password");
     } finally {

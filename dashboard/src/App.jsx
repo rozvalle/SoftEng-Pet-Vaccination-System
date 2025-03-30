@@ -5,7 +5,7 @@ import ManageUsers from "./pages/ManageUsers";
 import Login from "./pages/Login";
 
 const PrivateRoute = () => {
-  const token = localStorage.getItem("isAuthenticated");
+  const token = sessionStorage.getItem("isAuthenticated");
 
   return token ? <Outlet /> : <Navigate to="/login" />;
 };

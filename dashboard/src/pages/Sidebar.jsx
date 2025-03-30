@@ -11,11 +11,12 @@ export default function Sidebar({ collapsed, setCollapsed }) { // ✅ Accept pro
 
   const toggleSidebar = (value) => {
     setCollapsed(value);
-    localStorage.setItem("sidebarCollapsed", JSON.stringify(value));
+    sessionStorage.setItem("sidebarCollapsed", JSON.stringify(value));
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("username");
   };
 
   const menuItems = [
