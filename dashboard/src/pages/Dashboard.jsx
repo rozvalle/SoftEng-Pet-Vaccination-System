@@ -75,6 +75,7 @@ export default function Dashboard() {
               style={{
                 textAlign: "left",
                 borderRadius: "10px",
+                border: "none",
                 background: feature.gradient,
                 color: "white",
                 width: "250px", /* Set fixed width */
