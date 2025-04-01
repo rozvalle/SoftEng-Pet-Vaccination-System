@@ -1,4 +1,4 @@
-import { Layout, Card, Row, Col, Typography, Carousel } from "antd";
+import { Layout, Card, Row, Typography, Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 import { 
   HeartOutlined, 
@@ -6,20 +6,12 @@ import {
   MedicineBoxOutlined 
 } from "@ant-design/icons";
 import React from "react";
-import "../styles/Dashboard.css"; // Adjust the path as necessary
-import banner1 from "../assets/banner1.jpg";
-import banner2 from "../assets/banner2.jpg";
-import banner3 from "../assets/banner3.jpg";
+import "../styles/Dashboard.css";
 
 const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const bannerImages = [
-    banner1,
-    banner2,
-    banner3,
-  ];
 
   const features = [
     { 
@@ -54,19 +46,10 @@ export default function Dashboard() {
 
   return (
     <Layout style={{ backgroundColor: "#fff", gap: "0px", }}>
-     <Carousel autoplay effect="fade" style={{ marginBottom: "0px" }}>
-        {[1, 2, 3].map((num) => (
-          <div key={num}>
-            <img 
-              src={bannerImages[num - 1]} 
-              alt={`Slide ${num}`} 
-              style={{ width: "100%", height: "400px", objectFit: "cover"}} 
-            />
-          </div>
-        ))}
-      </Carousel>
-      <Layout style={{ padding: "24px", gap: "0px", backgroundColor: "#fff" }}>
+      <Layout style={{ padding: "35px", gap: "0px", backgroundColor: "#fff", marginBottom:0}}>
       <h1 className="dashboard-header">Dashboard</h1>
+      <p >Easily manage pet records, vaccinations, species, and breeds in one place.</p>
+      <Divider style={{borderColor: "#ddd", marginTop:10}} />
       <Row justify="left" style={{ gap: "10px" }}>
         {features.map((feature, index) => (
             <Card

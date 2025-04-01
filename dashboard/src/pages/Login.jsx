@@ -1,13 +1,20 @@
-import { Form, Input, Button, message, Checkbox } from "antd";
+import { Form, Input, Button, message, Checkbox, Carousel} from "antd";
+import banner1 from "../assets/banner1.jpg";
+import banner2 from "../assets/banner2.jpg";
+import banner3 from "../assets/banner3.jpg";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import loginimage from "../assets/banner3.jpg";
 import logo from "../assets/furcare.png"; 
 
 export default function Login() {
+  const bannerImages = [
+    banner1,
+    banner2,
+    banner3,
+  ];
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -31,7 +38,17 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="login-image">
-         { /* <img src={loginimage} alt="Login" style={{ width: "100%", height: "100vh", objectFit: "cover" }} /> */}
+        <Carousel autoplay effect="fade">
+          {[1, 2, 3].map((num) => (
+            <div key={num}>
+              <img 
+                src={bannerImages[num - 1]} 
+                alt={`Slide ${num}`} 
+                style={{ width: "100%", height:"100vh", objectFit: "cover"}} 
+              />
+            </div>
+          ))}
+        </Carousel>
       </div>
       <div className="login-form">
         <div className="login-logo">
