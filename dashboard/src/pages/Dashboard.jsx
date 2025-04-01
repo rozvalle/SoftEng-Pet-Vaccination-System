@@ -1,9 +1,10 @@
-import { Layout, Card, Row, Typography, Divider } from "antd";
+import { Layout, Card, Row, Typography, Divider, Col } from "antd";
 import { useNavigate } from "react-router-dom";
 import { 
   HeartOutlined, 
   PlusCircleOutlined, 
-  MedicineBoxOutlined 
+  MedicineBoxOutlined,
+  AppstoreAddOutlined
 } from "@ant-design/icons";
 import React from "react";
 import "../styles/Dashboard.css";
@@ -12,6 +13,18 @@ const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const cardData = [
+    {
+      icon: <AppstoreAddOutlined style={{ fontSize: '55px', color: '#ff4d4f' }} />,
+      title: 'Total Pets Registered',
+      description: '120 Pets', // Example data, replace with dynamic data
+    },
+    {
+      icon: <MedicineBoxOutlined style={{ fontSize: '60px', color: '#52c41a' }} />,
+      title: 'Total Vaccines Administered',
+      description: '250 Vaccines', // Example data, replace with dynamic data
+    },
+  ];
 
   const features = [
     { 
@@ -50,6 +63,22 @@ export default function Dashboard() {
       <h1 className="dashboard-header">Dashboard</h1>
       <p >Easily manage pet records, vaccinations, species, and breeds in one place.</p>
       <Divider style={{borderColor: "#ddd", marginTop:10}} />
+      <Row gutter={24} style={{ marginBottom: "20px" }}>
+      {cardData.map((card, index) => (
+        <Col key={index} span={12}>
+          <Card style={{ width: '100%' }}>
+            <Row gutter={24} align="middle">
+              <Col>{card.icon}</Col>
+              <Col flex="auto">
+                <h2>{card.title}</h2>
+                <p>{card.description}</p>
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+
       <Row justify="left" style={{ gap: "10px" }}>
         {features.map((feature, index) => (
             <Card
@@ -61,8 +90,8 @@ export default function Dashboard() {
                 border: "none",
                 background: feature.gradient,
                 color: "white",
-                width: "250px", /* Set fixed width */
-                height: "200px", /* Adjust height if needed */
+                width: "250px",
+                height: "200px",
                 transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s",
               }}
               onClick={() => navigate(feature.path)}
