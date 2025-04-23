@@ -1,7 +1,7 @@
 import { Layout, Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { UserOutlined, HomeOutlined, SettingOutlined, LogoutOutlined, UnorderedListOutlined, DashboardOutlined } from "@ant-design/icons";
-import logo from "../assets/verstappen.png"; // Adjust path if necessary
+import logo from "../assets/furcare_logo_light.png"; // Adjust path if necessary
 
 const { Sider } = Layout;
 
@@ -46,7 +46,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       }}
     >
       <div className="logo" style={{ height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <img src={logo} alt="Logo" style={{ width: collapsed ? "40px" : "75px", transition: "width 0.3s ease" }} />
+        <img src={logo} alt="Logo" style={{ width: collapsed ? "35px" : "50px", transition: "width 0.3s ease" }} />
       </div>
       <Menu theme="dark" mode="inline" items={menuItems} selectedKeys={[selectedKey]} />
     </Sider>

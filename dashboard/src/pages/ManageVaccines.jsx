@@ -56,7 +56,7 @@ function ManageVaccines() {
           <h1 className="h1-user">Vaccine Management</h1>
           <p>Manage vaccine, and control access efficiently.</p>
           <Divider style={{borderColor: "#ddd" }} />
-            <Layout style={{ padding: '20px 30px 0px 30px', backgroundColor: '#fefefe', borderRadius: 10 }} >
+            <Layout style={{ backgroundColor: '#fefefe', borderRadius: 10 }} >
                 <Table 
                     columns={columns} 
                     dataSource={data}

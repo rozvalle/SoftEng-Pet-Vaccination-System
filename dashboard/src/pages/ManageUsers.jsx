@@ -153,7 +153,7 @@ function ManageUsers() {
           <h1 className="h1-user">User Management</h1>
           <p>Manage user accounts, update details, and control access efficiently.</p>
           <Divider style={{ borderColor: "#ddd" }} />
-          <Layout style={{ padding: "0px 30px 0px 30px", backgroundColor: "#fefefe" }}>
+          <Layout style={{ backgroundColor: "#fefefe" }}>
             <div className="table-top-parent">
               <div className="header-user">
                 <Input.Search

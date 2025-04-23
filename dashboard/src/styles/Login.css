@@ -18,11 +18,18 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    margin-top: -70px;
+    margin-bottom: 30px;
 }
 
 .login-logo p {
-    margin-bottom: 50px;
+    color: lightgray;
+    font-size: 14px;
+
+}
+
+.login-logo h1 {
+    margin-bottom: -10px;
+    margin-top: 20px;
 }
 
 .login-image {
@@ -39,11 +46,7 @@
     margin-bottom: 40px;
 }
 
-h1 {
-    margin: 0;
-}
-
 .custom-button:hover {
-    background-color: #0a1e3a !important;
-    border-color: #0a1e3a !important;
+    background-color: #002F5C !important;
+    border-color: #002F5C !important;
   }

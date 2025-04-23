@@ -7,7 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import logo from "../assets/furcare.png"; 
+import logo from "../assets/furcare_logo.png"; 
 
 export default function Login() {
   const bannerImages = [
@@ -52,8 +52,9 @@ export default function Login() {
       </div>
       <div className="login-form">
         <div className="login-logo">
-          <img src={logo} alt="Logo" style={{ width:"300px"}} />
-          <p>Welcome back to FurCare!</p>
+          <img src={logo} alt="Logo" style={{ width:"50px"}} />
+          <h1>Login to your Account</h1>
+          <p>Welcome Back! Please Enter Your Details</p>
         </div>
 
         <Form layout="vertical" onFinish={handleLogin}>
