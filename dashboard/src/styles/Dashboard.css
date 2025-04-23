@@ -10,3 +10,24 @@
 .dashboard-header {
     margin-top: 0;
 }
+
+.dashboard-parent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.dashboard-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-child p {
+    gap: 0px;
+    margin-bottom: 0px;
+    min-width: 100px;
+}

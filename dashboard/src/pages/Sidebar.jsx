@@ -5,7 +5,7 @@ import logo from "../assets/verstappen.png"; // Adjust path if necessary
 
 const { Sider } = Layout;
 
-export default function Sidebar({ collapsed, setCollapsed }) { // ✅ Accept props
+export default function Sidebar({ collapsed, setCollapsed }) { 
   const location = useLocation();
   const selectedKey = location.pathname;
 
@@ -20,11 +20,14 @@ export default function Sidebar({ collapsed, setCollapsed }) { // ✅ Accept pro
   };
 
   const menuItems = [
-    { key: "/home", icon: <HomeOutlined />, label: <Link to="/home">Home</Link> },
     { key: "/", icon: <DashboardOutlined />, label: <Link to="/">Dashboard</Link> },
-    { key: "/manageusers", icon: <UnorderedListOutlined />, label: <Link to="/manageusers">Manage Users</Link> },
-    { key: "/profile", icon: <UserOutlined />, label: <Link to="/profile">Profile</Link> },
-    { key: "/settings", icon: <SettingOutlined />, label: <Link to="/settings">Settings</Link> },
+    { key: "management", icon: <UnorderedListOutlined />, label: "Management",
+      children: [
+        { key: "/users", label: <Link to="/users">Manage User</Link> },
+        { key: "/pets", label: <Link to="/pets">Manage Pet</Link> },
+        { key: "/vaccines", label: <Link to="/vaccines">Manage Vaccine</Link> },
+
+    ]},
     { key: "divider", type: "divider", style: { borderTop: "2px solid rgba(255, 255, 255, 0.2)", margin: "12px 0" } },
     { key: "/login", icon: <LogoutOutlined />, label: <Link to="/login" onClick={handleLogout}>Logout</Link> },
   ];

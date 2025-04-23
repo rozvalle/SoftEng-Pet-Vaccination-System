@@ -3,6 +3,7 @@ import Main from "./pages/MainLayout";  // ✅ Import Main correctly
 import Dashboard from "./pages/Dashboard";
 import ManageUsers from "./pages/ManageUsers";
 import Login from "./pages/Login";
+import ManageVaccines from "./pages/ManageVaccines";
 
 const PrivateRoute = () => {
   const token = sessionStorage.getItem("isAuthenticated");
@@ -17,7 +18,8 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Main />}> {/* ✅ Main Layout with Sidebar */}
             <Route index element={<Dashboard />} />
-            <Route path="manageusers" element={<ManageUsers />} />
+            <Route path="users" element={<ManageUsers />} />
+            <Route path="vaccines" element={<ManageVaccines />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />

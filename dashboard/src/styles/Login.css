@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     overflow: hidden;
-    background: linear-gradient(to right, #FAF3E0, #FFFFFF);
+    background-color: #fafafa;
 }
 
 .login-form {
@@ -42,3 +42,8 @@
 h1 {
     margin: 0;
 }
+
+.custom-button:hover {
+    background-color: #0a1e3a !important;
+    border-color: #0a1e3a !important;
+  }

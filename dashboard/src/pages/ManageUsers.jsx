@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider } from "antd";
+import {
+  Layout,
+  Button,
+  Table,
+  Modal,
+  Form,
+  Input,
+  message,
+  Popconfirm,
+  Divider
+} from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import "../styles/ManageUsers.css"; // Adjust the path as necessary
-import logo from "../assets/furcare.png"; // Adjust the path as necessary
+import "../styles/ManageUsers.css";
+import logo from "../assets/furcare.png";
 
 const { Content } = Layout;
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -22,8 +32,8 @@ function ManageUsers() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get("http://localhost:5000/users");
-      setFilteredUsers(response.data);
       setUsers(response.data);
+      setFilteredUsers(response.data);
     } catch (error) {
       message.error("Error fetching users");
     }
@@ -38,22 +48,28 @@ function ManageUsers() {
         username: values.username,
         password: values.password
       };
-  
+
       console.log("🟢 Sending update request with:", userData);
-  
+
       let response;
       if (editingUser) {
-        response = await axios.put(`http://localhost:5000/users/${editingUser.user_id}`, userData);
+        response = await axios.put(
+          `http://localhost:5000/users/${editingUser.user_id}`,
+          userData
+        );
       } else {
-        response = await axios.post("http://localhost:5000/users", userData);
+        response = await axios.post(
+          "http://localhost:5000/users",
+          userData
+        );
       }
-  
+
       console.log("🟢 Server Response:", response.data);
       message.success(response.data.message || "User saved successfully");
-  
+
       await fetchUsers();
-      setIsModalOpen(false); 
-      form.resetFields(); 
+      setIsModalOpen(false);
+      form.resetFields();
     } catch (error) {
       console.error("❌ Error saving user:", error);
       message.error(error.response?.data?.error || "Error saving user");
@@ -94,7 +110,7 @@ function ManageUsers() {
       title: "Password",
       dataIndex: "user_password",
       key: "user_password",
-      render: (user_password) => "•".repeat(user_password?.length),
+      render: (user_password) => "•".repeat(user_password?.length)
     },
     {
       title: "",
@@ -111,7 +127,7 @@ function ManageUsers() {
                 lastname: record.user_ln,
                 middlename: record.user_mn,
                 username: record.user_name,
-                password: record.user_password,
+                password: record.user_password
               });
               setIsModalOpen(true);
             }}
@@ -126,51 +142,35 @@ function ManageUsers() {
             <Button icon={<DeleteOutlined />} danger style={{ width: "50%" }} />
           </Popconfirm>
         </div>
-      ),
-    },
+      )
+    }
   ];
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-     {/* <Layout className="page-header" style={{ 
-           height: "80px", 
-           minHeight: "80px",
-           maxHeight: "80px",
-           zIndex: 10,
-           overflow: "hidden", background: "#fff", 
-           //boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", 
-           textAlign: "center",
-        }}
-      > 
-        <Content>
-          <img src={logo} style={{ height:"80px", marginLeft:"-50px" }} />
-        </Content>
-      </Layout>
-      */}
-      <Layout style={{ background: "#f4f4f4", padding: 0, }}>
-        <Content style={{ 
-          overflow: "hidden",
-          padding: 35, background: "#fff", borderRadius: "6px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", }}>
+      <Layout style={{ background: "#fefefe" }}>
+        <Content style={{ overflow: "hidden", padding: 35 }}>
           <h1 className="h1-user">User Management</h1>
           <p>Manage user accounts, update details, and control access efficiently.</p>
-          <Divider style={{borderColor: "#ddd" }} />
-          <div className="table-top-parent">
-            <div className="header-user">
-              <Input.Search
-                placeholder="Search users..."
-                onChange={(e) => handleSearch(e.target.value)}
-                value={searchText}
-                style={{ width: 300 }}
-                allowClear
+          <Divider style={{ borderColor: "#ddd" }} />
+          <Layout style={{ padding: "0px 30px 0px 30px", backgroundColor: "#fefefe" }}>
+            <div className="table-top-parent">
+              <div className="header-user">
+                <Input.Search
+                  placeholder="Search users..."
+                  onChange={(e) => handleSearch(e.target.value)}
+                  value={searchText}
+                  style={{ width: 300 }}
+                  allowClear
                 />
-            </div>
-            <div className="table-top-search">
-              <Button
+              </div>
+              <div className="table-top-search">
+                <Button
                   type="primary"
                   icon={<PlusOutlined />}
                   style={{
-                    height: "40px",
-                    backgroundColor: "#001529", 
+                    height: "35px",
+                    backgroundColor: "#001529",
                     borderColor: "#001529"
                   }}
                   onClick={() => {
@@ -180,55 +180,74 @@ function ManageUsers() {
                   }}
                 >
                   Add User
-              </Button>
+                </Button>
+              </div>
             </div>
-          </div>
-          <Table
-            bordered
-            columns={columns}
-            dataSource={filteredUsers}
-            rowKey="user_id"
-            style={{
-              marginTop: 20,
-              overflow: "hidden",
-            }}
-            pagination={{ pageSize: 5 }}
-            rowClassName={(index) =>
-              index % 2 === 0 ? "table-row-light" : "table-row-dark"
-            }
-          />
-      </Content>
+            <Table
+              bordered
+              columns={columns}
+              dataSource={filteredUsers}
+              rowKey="user_id"
+              style={{ marginTop: 20, overflow: "hidden", width: "100%" }}
+              pagination={{ pageSize: 5 }}
+              rowClassName={(index) =>
+                index % 2 === 0 ? "table-row-light" : "table-row-dark"
+              }
+            />
+          </Layout>
+        </Content>
 
-      <Modal
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        footer={null}
-      >
-      <h2 style={{ marginBottom: "16px" }}>
-        {editingUser ? "Edit User" : "Add User"}
-      </h2>
-      <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item name="firstname" label="First Name" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="lastname" label="Last Name" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="middlename" label="Middle Name" style={{ marginBottom: "8px" }}>
-            <Input />
-          </Form.Item>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
-          <Form.Item name="username" label="Username" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="password" label="Password" rules={[{ required: true }]} style={{ marginBottom: "8px" }}>
-            <Input.Password />
-          </Form.Item>
-        </div>
-        <Button type="primary" htmlType="submit" block style={{ backgroundColor: "#001529", borderColor: "#001529" }}>
-          {editingUser ? "Update" : "Add"} User
-        </Button>
-        </Form>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null}>
+          <h2 style={{ marginBottom: "16px" }}>
+            {editingUser ? "Edit User" : "Add User"}
+          </h2>
+          <Form form={form} layout="vertical" onFinish={handleSubmit}>
+            <Form.Item
+              name="firstname"
+              label="First Name"
+              rules={[{ required: true }]}
+              style={{ marginBottom: "8px" }}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="lastname"
+              label="Last Name"
+              rules={[{ required: true }]}
+              style={{ marginBottom: "8px" }}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item name="middlename" label="Middle Name" style={{ marginBottom: "8px" }}>
+              <Input />
+            </Form.Item>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
+              <Form.Item
+                name="username"
+                label="Username"
+                rules={[{ required: true }]}
+                style={{ marginBottom: "8px" }}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                label="Password"
+                rules={[{ required: true }]}
+                style={{ marginBottom: "8px" }}
+              >
+                <Input.Password />
+              </Form.Item>
+            </div>
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              style={{ backgroundColor: "#001529", borderColor: "#001529" }}
+            >
+              {editingUser ? "Update" : "Add"} User
+            </Button>
+          </Form>
         </Modal>
       </Layout>
     </Layout>

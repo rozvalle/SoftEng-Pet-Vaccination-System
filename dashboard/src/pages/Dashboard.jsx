@@ -4,8 +4,10 @@ import {
   HeartOutlined, 
   PlusCircleOutlined, 
   MedicineBoxOutlined,
-  AppstoreAddOutlined
+  AppstoreAddOutlined,
+  SmileOutlined
 } from "@ant-design/icons";
+import dayjs from "dayjs";
 import React from "react";
 import "../styles/Dashboard.css";
 
@@ -52,7 +54,7 @@ export default function Dashboard() {
       title: "Add Vaccine", 
       description: "Register vaccines for pet health records.", 
       icon: <MedicineBoxOutlined />, 
-      path: "/addvaccine",
+      path: "/vaccines",
       gradient: "linear-gradient(135deg, #ff9a44 0%, #fc6076 100%)"
     },
   ];
@@ -60,25 +62,40 @@ export default function Dashboard() {
   return (
     <Layout style={{ backgroundColor: "#fff", gap: "0px", }}>
       <Layout style={{ padding: "35px", gap: "0px", backgroundColor: "#fff", marginBottom:0}}>
-      <h1 className="dashboard-header">Dashboard</h1>
-      <p >Easily manage pet records, vaccinations, species, and breeds in one place.</p>
-      <Divider style={{borderColor: "#ddd", marginTop:10}} />
-      <Row gutter={24} style={{ marginBottom: "20px" }}>
-      {cardData.map((card, index) => (
-        <Col key={index} span={12}>
-          <Card style={{ width: '100%' }}>
-            <Row gutter={24} align="middle">
-              <Col>{card.icon}</Col>
-              <Col flex="auto">
-                <h2>{card.title}</h2>
-                <p>{card.description}</p>
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+      <Card
+      style={{
+        height: "20vh",
+        backgroundColor: "#FAF3E0",
+        borderRadius: "16px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "24px",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.05)"
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <SmileOutlined style={{ fontSize: "32px", color: "#001529" }} />
+        <div>
+          <Title level={2} style={{ margin: 0 }}>Welcome to FurCare Dashboard</Title>
+          <Text type="secondary">Today is {dayjs().format('MMMM D, YYYY')}</Text>
+        </div>
+      </div>
+    </Card>
+      <div className="dashboard-parent">
+        <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
+        <div className="dashboard-child">
+          <p style={{marginBottom:"-10px", marginTop:'1px'}}>Total Pets:</p>
+          <p><b>15</b></p>
+        </div>
+        <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
+        <div className="dashboard-child">
+          <p style={{marginBottom:"-10px", marginTop:'1px'}}>Total Vaccines Administered:</p>
+          <p><b>15</b></p>
+        </div>
+      </div>
 
+      <h2>Quick Access</h2>
       <Row justify="left" style={{ gap: "10px" }}>
         {features.map((feature, index) => (
             <Card
