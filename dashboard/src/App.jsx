@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import Main from "./pages/MainLayout";  // ✅ Import Main correctly
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard";
 import ManageUsers from "./pages/ManageUsers";
 import Login from "./pages/Login";
 import ManageVaccines from "./pages/ManageVaccines";
+import ManagePets from "./pages/ManagePets";
+import Users from "./pages/Users";
 
 const PrivateRoute = () => {
   const token = sessionStorage.getItem("isAuthenticated");
@@ -20,6 +22,8 @@ export default function App() {
             <Route index element={<Dashboard />} />
             <Route path="users" element={<ManageUsers />} />
             <Route path="vaccines" element={<ManageVaccines />} />
+            <Route path="pets" element={<ManagePets />} />
+            <Route path="users/:id" element={<Users />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />
