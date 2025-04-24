@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider } from "antd";
+import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider, Spin} from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import "../styles/ManageUsers.css";
 
@@ -13,6 +13,7 @@ function ManageUsers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUsers();
@@ -23,10 +24,22 @@ function ManageUsers() {
       const response = await axios.get("http://localhost:5000/users");
       setUsers(response.data);
       setFilteredUsers(response.data);
+      setLoading(false);
     } catch (error) {
       message.error("Error fetching users");
     }
   };
+
+    if (loading) {
+    return (
+      <Layout style={{ minHeight: "100vh" }}>
+        <Content style={{ padding: 35, textAlign: "center" }}>
+          <Spin size="large" />
+        </Content>
+      </Layout>
+    );
+  }
+
 
   const handleSubmit = async (values) => {
     try {
@@ -113,7 +126,7 @@ function ManageUsers() {
            <Button
             icon={<InfoCircleOutlined />}
             style={{ marginRight: 8, width: 60 }}
-            onClick={() => { `https://localhost:5000/vaccines/${record.vaccine_id}` 
+            onClick={() => { window.location.href = `http://localhost:5173/users/${record.user_id}`;
             }}
           />
           <Button
