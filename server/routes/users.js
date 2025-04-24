@@ -21,6 +21,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [result] = await db.query("SELECT * FROM tbl_users WHERE user_id = ?", [id]);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/", async (req, res) => {
   const { user_fn, user_ln, user_mn, username, password } = req.body;
 

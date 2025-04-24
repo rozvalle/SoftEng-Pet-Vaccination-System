@@ -56,4 +56,56 @@ router.get("/", async (req, res) => {
     }
   });
 
+  router.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log("Deleting vaccine with ID:", id);
+  
+    try {
+      const [result] = await db.query("DELETE FROM tbl_vaccine WHERE vaccine_id = ?", [id]);
+  
+      console.log("Delete result:", result);
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Vaccine not found" });
+      }
+  
+      res.status(200).json({ message: "Vaccine deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting vaccine:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
+  router.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const { vaccine_name, vaccine_desc, vaccine_man, vaccine_img } = req.body;
+  
+    try {
+      const [existingVaccine] = await db.query(
+        "SELECT vaccine_id FROM tbl_vaccine WHERE vaccine_name = ? AND vaccine_id != ?",
+        [vaccine_name, id]
+      );
+  
+      if (existingVaccine.length > 0) {
+        return res.status(400).json({ error: "Vaccine already exists" });
+      }
+  
+      const query = `
+        UPDATE tbl_vaccine 
+        SET vaccine_name = ?, vaccine_desc = ?, vaccine_man = ?, vaccine_img = ?
+        WHERE vaccine_id = ?
+      `;
+      const [result] = await db.query(query, [vaccine_name, vaccine_desc, vaccine_man, vaccine_img, id]);
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Vaccine not found" });
+      }
+  
+      res.status(200).json({ message: "Vaccine updated successfully" });
+    } catch (error) {
+      console.error("Error updating vaccine:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
 module.exports = router; 

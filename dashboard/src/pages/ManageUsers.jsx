@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider } from "antd";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import "../styles/ManageUsers.css";
 
 const { Content } = Layout;
@@ -39,6 +39,12 @@ function ManageUsers() {
       };
 
       let response;
+
+      if(values.password !== values.confirm) {
+        message.error("Passwords do not match");
+        return;
+      }
+
       if (editingUser) {
         response = await axios.put(
           `http://localhost:5000/users/${editingUser.user_id}`,
@@ -103,10 +109,16 @@ function ManageUsers() {
       title: "",
       key: "actions",
       render: (_, record) => (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", width: "100%", justifyContent: "right" }}>
+           <Button
+            icon={<InfoCircleOutlined />}
+            style={{ marginRight: 8, width: 60 }}
+            onClick={() => { `https://localhost:5000/vaccines/${record.vaccine_id}` 
+            }}
+          />
           <Button
             icon={<EditOutlined />}
-            style={{ marginRight: 8, width: "50%" }}
+            style={{ marginRight: 8, width: 60 }}
             onClick={() => {
               setEditingUser(record);
               form.setFieldsValue({
@@ -126,7 +138,7 @@ function ManageUsers() {
             cancelText="No"
             placement="topRight"
           >
-            <Button icon={<DeleteOutlined />} danger style={{ width: "50%" }} />
+            <Button icon={<DeleteOutlined />} danger style={{ width: 60 }} />
           </Popconfirm>
         </div>
       )
@@ -184,7 +196,7 @@ function ManageUsers() {
           </Layout>
         </Content>
 
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={450}>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={600}>
           <h2 style={{ marginBottom: "16px", textAlign:'center' }}>
             {editingUser ? "Edit User" : "Add User"}
           </h2>
@@ -204,7 +216,7 @@ function ManageUsers() {
               rules={[{ required: true }]}
               style={{ marginBottom: "12px" }}
             >
-              <Input />
+              <Input placeholder="Enter first name" />
             </Form.Item>
             <Form.Item
               name="lastname"
@@ -212,30 +224,39 @@ function ManageUsers() {
               rules={[{ required: true }]}
               style={{ marginBottom: "12px" }}
             >
-              <Input />
+              <Input placeholder="Enter last name" />
             </Form.Item>
             <Form.Item
               name="middlename"
               label="Middle Name"
               style={{ marginBottom: "12px" }}
             >
-              <Input />
+              <Input placeholder="Enter middle name(optional)" />
             </Form.Item>
+            <Divider></Divider>
             <Form.Item
               name="username"
               label="Username"
               rules={[{ required: true }]}
               style={{ marginBottom: "12px" }}
             >
-              <Input />
+              <Input placeholder="Create a unique username" />
             </Form.Item>
             <Form.Item
               name="password"
               label="Password"
               rules={[{ required: true }]}
-              style={{ marginBottom: "20px" }} // slightly more space before the button
+              style={{ marginBottom: "12px" }} // slightly more space before the button
             >
-              <Input.Password />
+              <Input.Password placeholder="Create a secure password" />
+            </Form.Item>
+            <Form.Item
+              name="confirm"
+              label="Confirm Password"
+              rules={[{ required: true }]}
+              style={{ marginBottom: "24px" }} // slightly more space before the button
+            >
+              <Input.Password placeholder="Confirm password" />
             </Form.Item>
             
             <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>

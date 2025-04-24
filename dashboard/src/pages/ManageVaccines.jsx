@@ -33,14 +33,14 @@ function ManageVaccines() {
         title: 'Description',
         dataIndex: 'vaccine_desc',
         key: 'vaccine_desc',
-        width: 500,
+        width: 300,
         ellipsis: true,
       },
       {
         title: 'Manufacturer',
         dataIndex: 'vaccine_man',
         key: 'vaccine_man',
-        width: 200,
+        width: 150,
         ellipsis: true,
       },
       {
@@ -48,16 +48,16 @@ function ManageVaccines() {
         key: 'actions',
         width: 130,
         render: (_, record) => (
-          <div style={{ display: "flex", justifyContent: "space-between", width: "180px", paddingRight: "20px" }}>
+          <div style={{ display: "flex"}}>
             <Button
               icon={<InfoCircleOutlined />}
-              style={{ marginRight: 8, width: "60px" }}
+              style={{ marginRight: 8, width: 60 }}
               onClick={() => { `https://localhost:5000/vaccines/${record.vaccine_id}` 
               }}
             />
             <Button
               icon={<EditOutlined />}
-              style={{ marginRight: 8, width: "60px" }}
+              style={{ marginRight: 8, width: 60 }}
               onClick={() => {
                 fetchVaccineById(record.vaccine_id);  // Fetch vaccine data
                 setEditingVaccine(record);  // Set the record for later use
@@ -77,7 +77,7 @@ function ManageVaccines() {
               cancelText="No"
               placement="topRight"
             >
-              <Button icon={<DeleteOutlined />} danger style={{ width: "60px" }} />
+              <Button icon={<DeleteOutlined />} danger style={{ width: 60}} />
             </Popconfirm>
           </div>
         )
@@ -125,8 +125,9 @@ function ManageVaccines() {
   
       let response;
       if (editingVaccine) {
+        console.log("Editing Vaccine:", editingVaccine.vaccine_id);
         response = await axios.put(
-          `http://localhost:5000/users/${editingVaccine.user_id}`,
+          `http://localhost:5000/vaccines/${editingVaccine.vaccine_id}`,
           userData
         );
       } else {
@@ -146,6 +147,18 @@ function ManageVaccines() {
         }
       };
   
+      const handleDelete = async (id) => {
+        if (!id) {
+          console.error("Error: Vaccine ID is undefined");
+          message.error("Cannot delete Vaccine: Missing Vaccine ID");
+          return;
+        }
+    
+        console.log(`Attempting to delete vaccine with ID: ${id}`);
+        await axios.delete(`http://localhost:5000/vaccines/${id}`);
+        message.success("Vaccine deleted successfully");
+        fetchVaccines();
+      };
  
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -196,7 +209,7 @@ function ManageVaccines() {
             </Layout>
         </Content>
 
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={450}>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={550}>
         <h2 style={{ marginBottom: "16px", textAlign:'center' }}>
           {editingVaccine ? "Edit Vaccine" : "Add Vaccine"}
         </h2>
@@ -206,8 +219,8 @@ function ManageVaccines() {
           form={form}
           layout="horizontal"
           onFinish={handleSubmit}
-          labelCol={{ span: 7 }}
-          wrapperCol={{ span: 17 }}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 19 }}
           labelAlign="left"
         >
           <Form.Item
@@ -216,30 +229,35 @@ function ManageVaccines() {
             rules={[{ required: true }]}
             style={{ marginBottom: "12px" }}
           >
-            <Input />
+            <Input placeholder="e.g. Nobivac® DHPPi+L4 (Dog 8-in-1 Regular)" />
           </Form.Item>
           <Form.Item
             name="description"
             label="Description"
             rules={[{ required: true }]}
-            style={{ marginBottom: "12px" }}
+            style={{ marginBottom: "24px" }}
           >
-            <Input />
+            <Input.TextArea
+              rows={4}
+              maxLength={150}
+              showCount
+              placeholder="Enter description (max 150 characters)"
+            />
           </Form.Item>
           <Form.Item
             name="manufacturer"
             label="Manufacturer"
             style={{ marginBottom: "12px" }}
           >
-            <Input />
+            <Input placeholder="e.g. MSD Animal Health" />
           </Form.Item>
           <Form.Item
             name="imgurl"
             label="Image URL"
             rules={[{ required: true }]}
-            style={{ marginBottom: "12px" }}
+            style={{ marginBottom: "24px" }}
           >
-            <Input />
+            <Input placeholder="e.g. https://example.com" />
           </Form.Item>
           
           <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
