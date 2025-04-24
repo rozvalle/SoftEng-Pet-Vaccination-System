@@ -2,7 +2,8 @@ const express = require("express");
 const mysql = require("mysql2/promise");
 const cors = require("cors");
 const usersRoutes = require("./routes/users");
-const vaccineRoutes = require("./routes/vaccines");
+const vaccinesRoutes = require("./routes/vaccines");
+const petsRoutes = require("./routes/pets");
 
 
 
@@ -26,7 +27,8 @@ const db = mysql.createPool({
 
 app.use(express.json());
 app.use("/users", usersRoutes);
-app.use("/vaccines", vaccineRoutes);
+app.use("/vaccines", vaccinesRoutes);
+app.use("/pets", petsRoutes);
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
