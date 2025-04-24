@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Layout,
-  Button,
-  Table,
-  Modal,
-  Form,
-  Input,
-  message,
-  Popconfirm,
-  Divider
-} from "antd";
+import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../styles/ManageUsers.css";
-import logo from "../assets/furcare.png";
 
 const { Content } = Layout;
 
@@ -49,8 +38,6 @@ function ManageUsers() {
         password: values.password
       };
 
-      console.log("🟢 Sending update request with:", userData);
-
       let response;
       if (editingUser) {
         response = await axios.put(
@@ -64,14 +51,14 @@ function ManageUsers() {
         );
       }
 
-      console.log("🟢 Server Response:", response.data);
+      console.log("Server Response:", response.data);
       message.success(response.data.message || "User saved successfully");
 
       await fetchUsers();
       setIsModalOpen(false);
       form.resetFields();
     } catch (error) {
-      console.error("❌ Error saving user:", error);
+      console.error("Error saving user:", error);
       message.error(error.response?.data?.error || "Error saving user");
     }
   };
@@ -197,16 +184,25 @@ function ManageUsers() {
           </Layout>
         </Content>
 
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null}>
-          <h2 style={{ marginBottom: "16px" }}>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={450}>
+          <h2 style={{ marginBottom: "16px", textAlign:'center' }}>
             {editingUser ? "Edit User" : "Add User"}
           </h2>
-          <Form form={form} layout="vertical" onFinish={handleSubmit}>
+          <p style={{textAlign:'center'}}>A pop-up form to quickly add new user details.</p>
+          
+          <Form
+            form={form}
+            layout="horizontal"
+            onFinish={handleSubmit}
+            labelCol={{ span: 7 }}
+            wrapperCol={{ span: 17 }}
+            labelAlign="left"
+          >
             <Form.Item
               name="firstname"
               label="First Name"
               rules={[{ required: true }]}
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "12px" }}
             >
               <Input />
             </Form.Item>
@@ -214,39 +210,44 @@ function ManageUsers() {
               name="lastname"
               label="Last Name"
               rules={[{ required: true }]}
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "12px" }}
             >
               <Input />
             </Form.Item>
-            <Form.Item name="middlename" label="Middle Name" style={{ marginBottom: "8px" }}>
+            <Form.Item
+              name="middlename"
+              label="Middle Name"
+              style={{ marginBottom: "12px" }}
+            >
               <Input />
             </Form.Item>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
-              <Form.Item
-                name="username"
-                label="Username"
-                rules={[{ required: true }]}
-                style={{ marginBottom: "8px" }}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                label="Password"
-                rules={[{ required: true }]}
-                style={{ marginBottom: "8px" }}
-              >
-                <Input.Password />
-              </Form.Item>
-            </div>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              style={{ backgroundColor: "#001529", borderColor: "#001529" }}
+            <Form.Item
+              name="username"
+              label="Username"
+              rules={[{ required: true }]}
+              style={{ marginBottom: "12px" }}
             >
-              {editingUser ? "Update" : "Add"} User
-            </Button>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[{ required: true }]}
+              style={{ marginBottom: "20px" }} // slightly more space before the button
+            >
+              <Input.Password />
+            </Form.Item>
+            
+            <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+                style={{ backgroundColor: "#001529", borderColor: "#001529" }}
+              >
+                {editingUser ? "Update" : "Add"} User
+              </Button>
+            </Form.Item>
           </Form>
         </Modal>
       </Layout>
