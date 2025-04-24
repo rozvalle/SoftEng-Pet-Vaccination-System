@@ -1,4 +1,4 @@
-import { Layout, Card, Row, Typography, Divider, Col } from "antd";
+import { Layout, Card, Row, Typography, Divider, Col, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import { 
   HeartOutlined, 
@@ -9,13 +9,26 @@ import {
 } from "@ant-design/icons";
 import dayjs from "dayjs";
 import React from "react";
-import logo from "../assets/furcare.png";
+import dashboardbg from "../assets/dashboardbg.png";
 import "../styles/Dashboard.css";
 
 const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  /*
+  const [loading, setLoading] = useState(true);
+  
+    if (loading) {
+      return (
+        <Layout style={{ minHeight: "100vh" }}>
+          <Content style={{ padding: 35, textAlign: "center" }}>
+            <Spin size="large" />
+          </Content>
+        </Layout>
+      );
+    }
+  */
 
   const features = [
     { 
@@ -52,11 +65,14 @@ export default function Dashboard() {
     <Layout style={{ backgroundColor: "#fff", gap: "0px", }}>
       <Layout style={{ padding: "35px", gap: "0px", backgroundColor: "#fff", marginBottom:0}}>
       <Card
+       className="dashboard-card"
         style={{
           height: "200px",
-          backgroundColor: '#005974',
+          //backgroundColor: '#005974',
+          backgroundImage: `url(${dashboardbg})`,
           borderRadius: "16px",
           display: "flex",
+          backgroundSize: "cover",
           flexDirection: "column",
           justifyContent: "center",
           padding: "24px",
