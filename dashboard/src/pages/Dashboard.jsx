@@ -62,30 +62,32 @@ export default function Dashboard() {
   ];
 
   return (
-    <Layout style={{ backgroundColor: "#fff", gap: "0px", }}>
-      <Layout style={{ padding: "35px", gap: "0px", backgroundColor: "#fff", marginBottom:0}}>
-      <Card
-       className="dashboard-card"
-        style={{
-          height: "200px",
-          //backgroundColor: '#005974',
-          backgroundImage: `url(${dashboardbg})`,
-          borderRadius: "16px",
-          display: "flex",
-          backgroundSize: "cover",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "24px",
-        }}
-      >
-      <div style={{ display: "flex", alignItems: "center", gap: "16px", }}>
-        <SmileOutlined style={{ fontSize: "50px", color: "#fff" }} />
-        <div>
-          <Title level={2} style={{ margin: 0, color: "#fff"  }}>Welcome to FurCare Dashboard</Title>
-          <Text type="secondary" style={{ color:"#fff"}}>Today is {dayjs().format('MMMM D, YYYY')}</Text>
-        </div>
-      </div>
-    </Card>
+    <Layout style={{ backgroundColor: "#fefefe", gap: "0px", }}>
+      <Layout style={{ padding: 15, paddingBottom: 0,backgroundColor: "#fefefe"}}>
+        <Card
+          className="dashboard-card"
+            style={{
+              height: "200px",
+              //backgroundColor: '#005974',
+              backgroundImage: `url(${dashboardbg})`,
+              borderRadius: "16px",
+              display: "flex",
+              backgroundSize: "cover",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "24px",
+            }}
+          >
+          <div style={{ display: "flex", alignItems: "center", gap: "16px", }}>
+            <SmileOutlined style={{ fontSize: "50px", color: "#fff" }} />
+            <div>
+              <Title level={2} style={{ margin: 0, color: "#fff"  }}>Welcome to FurCare Dashboard</Title>
+              <Text type="secondary" style={{ color:"#fff"}}>Today is {dayjs().format('MMMM D, YYYY')}</Text>
+            </div>
+          </div>
+        </Card>
+      </Layout>
+      <Layout style={{ padding: "35px", paddingTop: 0, gap: "0px", backgroundColor: "#fff", marginBottom:0}}>
       <div className="dashboard-parent">
         <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
         <div className="dashboard-child">
