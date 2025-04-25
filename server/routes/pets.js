@@ -15,7 +15,19 @@ const db = mysql.createPool({
 // Get all pets
 router.get("/", async (req, res) => {
   try {
-    const [result] = await db.query("SELECT * FROM tbl_pets");
+    const query = `
+      SELECT 
+        p.pet_id, 
+        p.pet_name, 
+        p.pet_sex, 
+        p.pet_species, 
+        p.pet_img, 
+        p.owner_id, 
+        CONCAT(u.user_fn, ' ', u.user_ln) AS owner_name
+      FROM tbl_pets p
+      JOIN tbl_users u ON p.owner_id = u.user_id
+    `;
+    const [result] = await db.query(query);
     res.json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -33,9 +45,22 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Get a pet by Owner_ID
+router.get("/owner/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    console.log("Owner ID:", id); // Log the owner_id for debugging
+    const [result] = await db.query("SELECT * FROM tbl_pets WHERE owner_id = ?", [id]);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 // Create a new pet
 router.post("/", async (req, res) => {
-  const { owner_id, pet_name, pet_sex, pet_img } = req.body;
+  const { owner_id, pet_name, pet_sex, pet_species, pet_img } = req.body;
 
   const [existingPet] = await db.query(
     "SELECT pet_id FROM tbl_pets WHERE pet_name = ? AND owner_id = ?",
@@ -45,14 +70,14 @@ router.post("/", async (req, res) => {
   if (existingPet.length > 0) {
     return res.status(400).json({ error: "Pet with the same name already exists for this owner" });
   }
-
+  
   const query = `
-    INSERT INTO tbl_pets (owner_id, pet_name, pet_sex, pet_img)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO tbl_pets (owner_id, pet_name, pet_sex, pet_species, pet_img)
+    VALUES (?, ?, ?, ?, ?)
   `;
 
   try {
-    await db.query(query, [owner_id, pet_name, pet_sex, pet_img]);
+    await db.query(query, [owner_id, pet_name, pet_sex, pet_species, pet_img]);
     res.status(201).json({ message: "Pet added successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -79,7 +104,7 @@ router.delete("/:id", async (req, res) => {
 // Update a pet
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { owner_id, pet_name, pet_sex, pet_img } = req.body;
+  const { owner_id, pet_name, pet_sex, pet_species, pet_img } = req.body;
 
   try {
     const [existingPet] = await db.query(
@@ -93,10 +118,10 @@ router.put("/:id", async (req, res) => {
 
     const query = `
       UPDATE tbl_pets
-      SET owner_id = ?, pet_name = ?, pet_sex = ?, pet_img = ?
+      SET owner_id = ?, pet_name = ?, pet_sex = ?, pet_img = ?, pet_species = ?
       WHERE pet_id = ?
     `;
-    const [result] = await db.query(query, [owner_id, pet_name, pet_sex, pet_img, id]);
+    const [result] = await db.query(query, [owner_id, pet_name, pet_sex, pet_img, pet_species, id]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Pet not found" });

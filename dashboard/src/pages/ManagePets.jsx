@@ -40,7 +40,7 @@ const columns = [
     title: 'Name',
     dataIndex: 'pet_name',
     key: 'pet_name',
-    width: 220,
+    width: 150,
     ellipsis: true,
     },
     {
@@ -51,10 +51,17 @@ const columns = [
     ellipsis: true,
     },
     {
-    title: 'Owner ID',
-    dataIndex: 'owner_id',
-    key: 'owner_id',
+    title: 'Species',
+    dataIndex: 'pet_species',
+    key: 'pet_species',
     width: 150,
+    ellipsis: true,
+    },
+    {
+    title: 'Owner',
+    dataIndex: 'owner_name',
+    key: 'owner_name',
+    width: 220,
     ellipsis: true,
     },
     {
@@ -62,7 +69,7 @@ const columns = [
     key: 'actions',
     width: 130,
     render: (_, record) => (
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", width: "100%", justifyContent: "right" }}>
         <Button
             icon={<InfoCircleOutlined />}
             style={{ marginRight: 8, width: 60 }}
@@ -77,6 +84,7 @@ const columns = [
             form.setFieldsValue({
                 name: record.pet_name,
                 sex: record.pet_sex,
+                species: record.pet_species,
                 owner_id: record.owner_id,
                 imgurl: record.pet_img,
             });
@@ -133,6 +141,7 @@ const handleSubmit = async (values) => {
         owner_id: values.owner_id,
         pet_name: values.name,
         pet_sex: values.sex,
+        pet_species: values.species,
         pet_img: values.imgurl,
     };
 
@@ -180,7 +189,7 @@ return (
     <Layout style={{ background: "#fefefe", padding: 0 }}>
         <Content style={{ overflow: "hidden", padding: 35 }}>
         <h1 className="h1-user">Pet Management</h1>
-        <p>Manage pets and control access efficiently.</p>
+        <p>Maintains pet profiles including name, species, breed, age, and owner association.</p>
         <Divider style={{ borderColor: "#ddd" }} />
         <div className="table-top-parent-pet">
             <div className="header-user">
@@ -250,11 +259,28 @@ return (
             rules={[{ required: true }]}
             style={{ marginBottom: "12px" }}
             >
-            <Input placeholder="e.g. Male" />
+            <Select
+                placeholder="Select sex"
+                allowClear
+                options={[{ value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }]}
+            />
+            </Form.Item>
+            <Form.Item
+            name="species"
+            label="Species"
+            rules={[{ required: true }]}
+            style={{ marginBottom: "12px" }}
+            >
+              <Select
+                placeholder="Select species"
+                allowClear
+                options={[{ value: 'canine', label: 'Canine' }, { value: 'feline', label: 'Feline' }, { value: 'others', label: 'Others' }]}
+            />
             </Form.Item>
             <Form.Item
             name="owner_id"
-            label="Owner ID"
+            label="Owner"
+            rules={[{ required: true }]}
             style={{ marginBottom: "12px" }}
             >
               <Select
@@ -269,7 +295,7 @@ return (
             <Form.Item
             name="imgurl"
             label="Image URL"
-            rules={[{ required: true }]}
+            rules={[{ required: false }]}
             style={{ marginBottom: "24px" }}
             >
             <Input placeholder="e.g. https://example.com" />
