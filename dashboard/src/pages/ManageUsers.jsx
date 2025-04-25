@@ -30,15 +30,22 @@ function ManageUsers() {
     }
   };
 
-    if (loading) {
-    return (
-      <Layout style={{ minHeight: "100vh" }}>
-        <Content style={{ padding: 35, textAlign: "center" }}>
-          <Spin size="large" />
-        </Content>
-      </Layout>
-    );
-  }
+  if (loading) {
+      return (
+        <Layout style={{ minHeight: "100vh" }}>
+          <Content
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <Spin size="large" />
+          </Content>
+        </Layout>
+      );
+    }
 
 
   const handleSubmit = async (values) => {
@@ -54,7 +61,7 @@ function ManageUsers() {
       let response;
 
       if(values.password !== values.confirm) {
-        message.error("Passwords do not match");
+        message.error("Oops! Password does not match.");
         return;
       }
 
@@ -108,9 +115,9 @@ function ManageUsers() {
 
   const columns = [
     { title: "ID", dataIndex: "user_id", key: "user_id" },
-    { title: "First Name", dataIndex: "user_fn", key: "user_fn" },
-    { title: "Last Name", dataIndex: "user_ln", key: "user_ln" },
-    { title: "Middle Name", dataIndex: "user_mn", key: "user_mn" },
+    { title: "First Name", dataIndex: "user_fn", key: "user_fn", width: 190 },
+    { title: "Last Name", dataIndex: "user_ln", key: "user_ln", width: 190 },
+    { title: "Middle Name", dataIndex: "user_mn", key: "user_mn", width: 190 },
     { title: "Username", dataIndex: "user_name", key: "user_name" },
     {
       title: "Password",
@@ -163,7 +170,7 @@ function ManageUsers() {
       <Layout style={{ background: "#fefefe" }}>
         <Content style={{ overflow: "hidden", padding: 35 }}>
           <h1 className="h1-user">User Management</h1>
-          <p>Manage user accounts, update details, and control access efficiently.</p>
+          <p>Handles user registration, and access control within the system.</p>
           <Divider style={{ borderColor: "#ddd" }} />
           <Layout style={{ backgroundColor: "#fefefe" }}>
             <div className="table-top-parent">
@@ -266,7 +273,7 @@ function ManageUsers() {
             <Form.Item
               name="confirm"
               label="Confirm Password"
-              rules={[{ required: true }]}
+              rules={[{ required: false }]}
               style={{ marginBottom: "24px" }} // slightly more space before the button
             >
               <Input.Password placeholder="Confirm password" />
