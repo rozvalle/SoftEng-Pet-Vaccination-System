@@ -48,7 +48,7 @@ function ManageVaccines() {
         key: 'actions',
         width: 130,
         render: (_, record) => (
-          <div style={{ display: "flex"}}>
+          <div style={{ display: "flex", width: "100%", justifyContent: "right"}}>
             <Button
               icon={<InfoCircleOutlined />}
               style={{ marginRight: 8, width: 60 }}
@@ -167,7 +167,7 @@ function ManageVaccines() {
           overflow: "hidden",
           padding: 35 }}>
           <h1 className="h1-user">Vaccine Management</h1>
-          <p>Manage vaccine, and control access efficiently.</p>
+          <p>Manages vaccine information such as name, manufacturer, and description</p>
           <Divider style={{borderColor: "#ddd" }} />
            <div className="table-top-parent-vaccine">
             <div className="header-user">
