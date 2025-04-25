@@ -1,11 +1,12 @@
-import { Layout, Card, Row, Typography, Divider, Col, Spin } from "antd";
+import { Layout, Card, Row, Typography, Button, Avatar} from "antd";
 import { useNavigate } from "react-router-dom";
 import { 
   HeartOutlined, 
-  PlusCircleOutlined, 
   MedicineBoxOutlined,
-  AppstoreAddOutlined,
-  SmileOutlined
+  UserOutlined,
+  SmileOutlined,
+  FileTextOutlined,
+  CompassOutlined,
 } from "@ant-design/icons";
 import dayjs from "dayjs";
 import React from "react";
@@ -16,44 +17,31 @@ const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  /*
-  const [loading, setLoading] = useState(true);
-  
-    if (loading) {
-      return (
-        <Layout style={{ minHeight: "100vh" }}>
-          <Content style={{ padding: 35, textAlign: "center" }}>
-            <Spin size="large" />
-          </Content>
-        </Layout>
-      );
-    }
-  */
 
   const features = [
     { 
       title: "Manage Pets", 
       description: "View and update pet records and details.", 
       icon: <HeartOutlined />, 
-      path: "/managepets",
+      path: "/pets",
       gradient: "linear-gradient(135deg, #00a8ac 0%, #005974 100%)"
     },
     { 
-      title: "Add Species", 
-      description: "Register new pet species in the database.", 
-      icon: <PlusCircleOutlined />, 
-      path: "/addspecies",
+      title: "Manage User", 
+      description: "Register, and manage users in the database.", 
+      icon: <UserOutlined />, 
+      path: "/users",
       gradient: "linear-gradient(135deg, #75fac7 0%, #00a8ac 100%)"
     },
     { 
-      title: "Add Breed", 
+      title: "Manage Records", 
       description: "Define breeds for each pet species.", 
-      icon: <PlusCircleOutlined />, 
-      path: "/addbreed",
+      icon: <FileTextOutlined />, 
+      path: "/vaccines/records",
       gradient: "linear-gradient(135deg, #005974 0%, #001529 100%)"
     },
     { 
-      title: "Add Vaccine", 
+      title: "Manage Vaccines", 
       description: "Register vaccines for pet health records.", 
       icon: <MedicineBoxOutlined />, 
       path: "/vaccines",
@@ -62,48 +50,68 @@ export default function Dashboard() {
   ];
 
   return (
-    <Layout style={{ backgroundColor: "#fefefe", gap: "0px", }}>
-      <Layout style={{ padding: 15, paddingBottom: 0,backgroundColor: "#fefefe"}}>
+    <Layout style={{ backgroundColor: "#fefefe", gap: "0px" }}>
+      <Layout className="dashboard-profile" style={{ padding: "10px 20px 10px 20px", backgroundColor: "#fefefe" }}>
+        <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "14px" }}>
+          {dayjs().format('MMMM D, YYYY')} {dayjs().format('HH:mm')}
+        </Text>
+        <div>
+          <Avatar shape="square" size="large" icon={<UserOutlined />} />
+          <Text style={{ marginLeft: "10px", fontSize: "14px", fontWeight: 600 }}>
+            {sessionStorage.getItem("username")}
+          </Text>
+        </div>
+      </Layout>
+      <Layout style={{ padding: "0 15px", backgroundColor: "#fefefe" }}>
         <Card
           className="dashboard-card"
-            style={{
-              height: "200px",
-              //backgroundColor: '#005974',
-              backgroundImage: `url(${dashboardbg})`,
-              borderRadius: "16px",
-              display: "flex",
-              backgroundSize: "cover",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "24px",
-            }}
-          >
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", }}>
-            <SmileOutlined style={{ fontSize: "50px", color: "#fff" }} />
-            <div>
-              <Title level={2} style={{ margin: 0, color: "#fff"  }}>Welcome to FurCare Dashboard</Title>
-              <Text type="secondary" style={{ color:"#fff"}}>Today is {dayjs().format('MMMM D, YYYY')}</Text>
+          style={{
+            height: "250px",
+            backgroundColor: '#005974',
+            borderRadius: "16px",
+            display: "flex",
+            backgroundSize: "cover",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            <div style={{ paddingLeft: 15 }}>
+              <Title level={2} style={{ margin: 0, color: "#fff" }}>Welcome to FurCare</Title>
+              <p>Easily manage your pets' health, track their vaccination records, and stay on top of appointments—all in one place.</p>
+              <Button
+                type="default"
+                icon={<CompassOutlined />}
+                style={{ marginTop: 16 }}
+              >
+                Explore Features
+              </Button>
             </div>
           </div>
         </Card>
       </Layout>
-      <Layout style={{ padding: "35px", paddingTop: 0, gap: "0px", backgroundColor: "#fff", marginBottom:0}}>
-      <div className="dashboard-parent">
-        <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
-        <div className="dashboard-child">
-          <p style={{marginBottom:"-10px", marginTop:'1px'}}>Total Pets:</p>
-          <p><b>15</b></p>
+      <Layout style={{ padding: "0 20px 20px 20px", backgroundColor: "#fff", marginBottom: 0 }}>
+        <div className="dashboard-parent">
+          <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
+          <div className="dashboard-child">
+            <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total User</p>
+            <p><b>23</b></p>
+          </div>
+          <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
+          <div className="dashboard-child">
+            <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total Pets</p>
+            <p><b>37</b></p>
+          </div>
+          <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
+          <div className="dashboard-child">
+            <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total Vaccines Administered</p>
+            <p><b>136</b></p>
+          </div>
         </div>
-        <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
-        <div className="dashboard-child">
-          <p style={{marginBottom:"-10px", marginTop:'1px'}}>Total Vaccines Administered:</p>
-          <p><b>15</b></p>
-        </div>
-      </div>
 
-      <h2>Quick Access</h2>
-      <Row justify="left" style={{ gap: "10px" }}>
-        {features.map((feature, index) => (
+        <h2>Quick Access</h2>
+        <Row justify="left" style={{ gap: "10px" }}>
+          {features.map((feature, index) => (
             <Card
               hoverable
               className="feature-card"
@@ -119,16 +127,16 @@ export default function Dashboard() {
               }}
               onClick={() => navigate(feature.path)}
             >
-              {React.cloneElement(feature.icon, { 
-                style: { fontSize: "55px", color: "white", marginBottom: "15px" } 
+              {React.cloneElement(feature.icon, {
+                style: { fontSize: "55px", color: "white", marginBottom: "15px" }
               })}
               <Title level={4} style={{ margin: 0, color: "white", fontWeight: "600" }}>
                 {feature.title}
               </Title>
               <Text style={{ color: "white", opacity: 0.9 }}>{feature.description}</Text>
             </Card>
-        ))}
-      </Row>
+          ))}
+        </Row>
       </Layout>
     </Layout>
   );
