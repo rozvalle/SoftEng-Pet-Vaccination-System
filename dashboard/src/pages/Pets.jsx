@@ -83,7 +83,7 @@ function Pets() {
                 <img
                     src={pet.pet_img || "https://archive.org/download/placeholder-image//placeholder-image.jpg"}
                     alt={pet.pet_name}
-                    style={{ width: "100%", height: 250, objectFit: "cover", borderRadius: 8 }}
+                    style={{ width: 350, height: 250, objectFit: "cover", borderRadius: 8 }}
                     onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "https://archive.org/download/placeholder-image//placeholder-image.jpg";
