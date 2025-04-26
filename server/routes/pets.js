@@ -38,6 +38,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
+    console.log("Fetching pet with ID:", id); // Debugging line
     const [result] = await db.query("SELECT * FROM tbl_pets WHERE pet_id = ?", [id]);
     res.json(result);
   } catch (err) {
@@ -49,7 +50,6 @@ router.get("/:id", async (req, res) => {
 router.get("/owner/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    console.log("Owner ID:", id); // Log the owner_id for debugging
     const [result] = await db.query("SELECT * FROM tbl_pets WHERE owner_id = ?", [id]);
     res.json(result);
   } catch (err) {
@@ -104,15 +104,15 @@ router.delete("/:id", async (req, res) => {
 // Update a pet
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { owner_id, pet_name, pet_sex, pet_species, pet_img } = req.body;
+  const { owner_id, pet_name, pet_sex, pet_img, pet_species } = req.body;
 
   try {
-    const [existingPet] = await db.query(
+    const [rows] = await db.query(
       "SELECT pet_id FROM tbl_pets WHERE pet_name = ? AND owner_id = ? AND pet_id != ?",
       [pet_name, owner_id, id]
     );
 
-    if (existingPet.length > 0) {
+    if (rows.length > 0) {
       return res.status(400).json({ error: "Pet with the same name already exists for this owner" });
     }
 
@@ -129,8 +129,10 @@ router.put("/:id", async (req, res) => {
 
     res.status(200).json({ message: "Pet updated successfully" });
   } catch (error) {
+    console.error(error);  // Log the error
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 module.exports = router;

@@ -25,7 +25,8 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use("/users", usersRoutes);
 app.use("/vaccines", vaccinesRoutes);
 app.use("/pets", petsRoutes);
@@ -50,6 +51,21 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get('/dashboard/counts', async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        (SELECT COUNT(*) FROM tbl_users) AS user_count,
+        (SELECT COUNT(*) FROM tbl_pets) AS pet_count,
+        (SELECT COUNT(*) FROM tbl_vaccinehistory) AS vaccinehistory_count;
+    `);
+    res.json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 });
 
