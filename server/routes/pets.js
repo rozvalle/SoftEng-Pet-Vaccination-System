@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
         CONCAT(u.user_fn, ' ', u.user_ln) AS owner_name
       FROM tbl_pets p
       JOIN tbl_users u ON p.owner_id = u.user_id
+      ORDER BY p.pet_id ASC
     `;
     const [result] = await db.query(query);
     res.json(result);
