@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import React, {useEffect, useState} from "react";
 import "../styles/Dashboard.css";
 import axios from "axios";
+import logo from "../assets/furcare.png"; // Adjust the path as necessary
 
 const { Title, Text } = Typography;
 
@@ -50,28 +51,28 @@ const fetchDashboardCounts = async () => {
       description: "View and update pet records and details.", 
       icon: <HeartOutlined />, 
       path: "/pets",
-      gradient: "linear-gradient(135deg, #00a8ac 0%, #005974 100%)"
+      gradient: "linear-gradient(135deg, #001529 0%, #2b3c53 100%)"
     },
     { 
       title: "Manage User", 
       description: "Register, and manage users in the database.", 
       icon: <UserOutlined />, 
       path: "/users",
-      gradient: "linear-gradient(135deg, #75fac7 0%, #00a8ac 100%)"
+      gradient: "linear-gradient(135deg, #2b3c53 0%, #586882 100%)"
     },
     { 
-      title: "Manage Records", 
+      title: "Manage Vaccinations", 
       description: "Define breeds for each pet species.", 
       icon: <FileTextOutlined />, 
-      path: "/vaccines/records",
-      gradient: "linear-gradient(135deg, #005974 0%, #001529 100%)"
+      path: "/vaccinations",
+      gradient: "linear-gradient(135deg, #586882 0%, #8898b3 100%)"
     },
     { 
       title: "Manage Vaccines", 
       description: "Register vaccines for pet health records.", 
       icon: <MedicineBoxOutlined />, 
       path: "/vaccines",
-      gradient: "linear-gradient(135deg, #ff9a44 0%, #fc6076 100%)"
+      gradient: "linear-gradient(135deg, #00415a 0%, #00727a 100%)"
     },
   ];
 
