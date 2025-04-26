@@ -1,0 +1,11 @@
+.vaccine-details {
+    display: flex;
+    flex-direction: row;
+    padding: 10;
+    padding-top: 0;
+}
+
+.vaccine-details-image {
+    display: flex;
+    flex-direction: row;
+}
