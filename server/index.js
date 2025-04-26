@@ -4,6 +4,7 @@ const cors = require("cors");
 const usersRoutes = require("./routes/users");
 const vaccinesRoutes = require("./routes/vaccines");
 const petsRoutes = require("./routes/pets");
+const vaccinationsRoutes = require("./routes/vaccinations");
 
 
 
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use("/users", usersRoutes);
 app.use("/vaccines", vaccinesRoutes);
 app.use("/pets", petsRoutes);
+app.use("/vaccinations", vaccinationsRoutes);
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
