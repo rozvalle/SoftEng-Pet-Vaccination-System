@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider, Select } from "antd";
-import { PlusOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider, Select, Upload } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import '../styles/ManagePets.css'; // Adjust the path as necessary
 
 const { Content } = Layout;
@@ -15,6 +15,37 @@ function ManagePets() {
     const [editingPet, setEditingPet] = useState(null);
     const [form] = Form.useForm();
     const [users, setUsers] = useState([]);
+    const [imageBase64, setImageBase64] = useState(null);
+
+    // Function to convert image file to base64
+    const getBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    };
+  
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
+
+    const handleBeforeUpload = async (file) => {
+    if (file.size > MAX_FILE_SIZE) {
+        message.error('File size exceeds 5MB limit');
+        return false; // Prevent upload if file size is too large
+    }
+    
+    try {
+        const base64 = await getBase64(file);
+        setImageBase64(base64); // Store base64 value
+        form.setFieldsValue({ imgurl: base64 });
+        message.success('Image uploaded successfully');
+    } catch (error) {
+        message.error('Error uploading image');
+    }
+
+    return false; // Prevent automatic upload to server
+    };
 
     useEffect(() => {
     fetchUsers();
@@ -73,7 +104,7 @@ const columns = [
         <Button
             icon={<InfoCircleOutlined />}
             style={{ marginRight: 8, width: 60 }}
-            onClick={() => { `https://localhost:5000/pets/${record.pet_id}` }}
+            onClick={() => { window.location.href = `http://localhost:5173/pets/${record.pet_id}`; }}
         />
         <Button
             icon={<EditOutlined />}
@@ -88,6 +119,7 @@ const columns = [
                 owner_id: record.owner_id,
                 imgurl: record.pet_img,
             });
+            setImageBase64(record.pet_img); 
             setIsModalOpen(true);
             }}
         />
@@ -137,39 +169,41 @@ const fetchPetById = async (id) => {
 
 const handleSubmit = async (values) => {
     try {
-    const petData = {
+      const imgurl = imageBase64 || form.getFieldValue('imgurl'); // Use the Base64 string from state or form
+      console.log("Image URL (Base64):", imgurl); // Debugging log
+  
+      const petData = {
         owner_id: values.owner_id,
         pet_name: values.name,
         pet_sex: values.sex,
         pet_species: values.species,
-        pet_img: values.imgurl,
-    };
-
-    let response;
-    if (editingPet) {
-        console.log("Editing Pet:", editingPet.pet_id);
+        pet_img: imageBase64, // Include the Base64 string in the payload
+      };
+  
+      console.log("Pet Data to Submit:", petData); // Debugging log
+  
+      let response;
+      if (editingPet) {
         response = await axios.put(
-        `http://localhost:5000/pets/${editingPet.pet_id}`,
-        petData
+          `http://localhost:5000/pets/${editingPet.pet_id}`,
+          petData
         );
-    } else {
+      } else {
         response = await axios.post(
-        "http://localhost:5000/pets",
-        petData
+          "http://localhost:5000/pets",
+          petData
         );
-    }
-
-    console.log("Server Response:", response.data);
-    message.success(response.data.message || "Pet saved successfully");
-
-    await fetchPets();
-    setIsModalOpen(false);
-    form.resetFields();
+      }
+  
+      message.success(response.data.message || "Pet saved successfully");
+      await fetchPets();
+      setIsModalOpen(false);
+      form.resetFields();
     } catch (error) {
-    console.error("Error saving pet:", error);
-    message.error(error.response?.data?.error || "Error saving pet");
+      console.error("Error saving pet:", error);
+      message.error(error.response?.data?.error || "Error saving pet");
     }
-};
+  };
 
 const handleDelete = async (id) => {
     if (!id) {
@@ -213,6 +247,7 @@ return (
                 onClick={() => {
                 setEditingPet(null);
                 form.resetFields();
+                setImageBase64(null);
                 setIsModalOpen(true);
                 }}
             >
@@ -292,13 +327,19 @@ return (
                 }))}
             />
             </Form.Item>
-            <Form.Item
-            name="imgurl"
-            label="Image URL"
-            rules={[{ required: false }]}
-            style={{ marginBottom: "24px" }}
-            >
-            <Input placeholder="e.g. https://example.com" />
+            <Form.Item name="imgurl" label="Image" rules={[{ required: false }]} style={{ marginBottom: 0 }}>
+                <div style={{ display: 'flex', flexDirection: 'column'}}>
+                    <Upload
+                        beforeUpload={handleBeforeUpload}
+                        showUploadList={false}
+                    >
+                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                    </Upload>
+                    {imageBase64 && (
+                        <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, width: "200px", maxHeight: "200px", objectFit: "contain", borderRadius:5 }} />
+                    )}
+                </div>
+                <p style={{ color: 'red', marginTop: '8px' }}>Note: Maximum file size is 5MB.</p>
             </Form.Item>
 
             <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
