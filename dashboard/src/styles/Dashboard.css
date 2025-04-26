@@ -56,3 +56,15 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.dashboard-profile-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.dashboard-profile-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -9,14 +9,40 @@ import {
   CompassOutlined,
 } from "@ant-design/icons";
 import dayjs from "dayjs";
-import React from "react";
-import dashboardbg from "../assets/dashboardbg.png";
+import React, {useEffect, useState} from "react";
 import "../styles/Dashboard.css";
+import axios from "axios";
 
 const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [dashboardCounts, setDashboardCounts] = useState({
+    userCount: 0,
+    petCount: 0,
+    vaccineHistoryCount: 0,
+  });
+
+  useEffect(() => {
+    fetchDashboardCounts();
+  }, []);
+  
+const fetchDashboardCounts = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/dashboard/counts');
+    console.log("Dashboard Counts:", response.data); // Log the response data
+    setDashboardCounts({
+      userCount: response.data.user_count,
+      petCount: response.data.pet_count,
+      vaccineHistoryCount: response.data.vaccinehistory_count,
+    });
+
+    console.log(response.data);
+  } catch (error) {
+    console.error('Failed to fetch dashboard counts:', error);
+    throw error;
+  }
+};
 
   const features = [
     { 
@@ -49,17 +75,27 @@ export default function Dashboard() {
     },
   ];
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("username");
+  };
+
   return (
     <Layout style={{ backgroundColor: "#fefefe", gap: "0px" }}>
       <Layout className="dashboard-profile" style={{ padding: "10px 20px 10px 20px", backgroundColor: "#fefefe" }}>
-        <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "14px" }}>
+        <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "14px"}}>
           {dayjs().format('MMMM D, YYYY')} {dayjs().format('HH:mm')}
         </Text>
-        <div>
+        <div className="dashboard-profile-user">
           <Avatar shape="square" size="large" icon={<UserOutlined />} />
-          <Text style={{ marginLeft: "10px", fontSize: "14px", fontWeight: 600 }}>
-            {sessionStorage.getItem("username")}
-          </Text>
+          <div className="dashboard-profile-text">
+            <Text style={{ marginLeft: "10px", fontSize: "14px", fontWeight: 600 }}>
+              {sessionStorage.getItem("username")}
+            </Text>
+            <Text style={{ marginLeft: "10px", fontSize: "12px", color: "#000" }} type="secondary">
+              <a href="/login" onClick={ handleLogout }>Logout</a>
+            </Text>
+          </div>
         </div>
       </Layout>
       <Layout style={{ padding: "0 15px", backgroundColor: "#fefefe" }}>
@@ -95,17 +131,17 @@ export default function Dashboard() {
           <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
           <div className="dashboard-child">
             <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total User</p>
-            <p><b>23</b></p>
+            <p><b>{dashboardCounts.userCount}</b></p>
           </div>
           <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
           <div className="dashboard-child">
             <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total Pets</p>
-            <p><b>37</b></p>
+            <p><b>{dashboardCounts.petCount}</b></p>
           </div>
           <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
           <div className="dashboard-child">
             <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total Vaccines Administered</p>
-            <p><b>136</b></p>
+            <p><b>{dashboardCounts.vaccineHistoryCount}</b></p>
           </div>
         </div>
 
