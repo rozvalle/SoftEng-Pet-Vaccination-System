@@ -12,7 +12,6 @@ import dayjs from "dayjs";
 import React, {useEffect, useState} from "react";
 import "../styles/Dashboard.css";
 import axios from "axios";
-import logo from "../assets/furcare.png"; // Adjust the path as necessary
 
 const { Title, Text } = Typography;
 
