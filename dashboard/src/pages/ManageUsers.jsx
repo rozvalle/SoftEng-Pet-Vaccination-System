@@ -171,7 +171,7 @@ function ManageUsers() {
         <Content style={{ overflow: "hidden", padding: 35 }}>
           <h1 className="h1-user">User Management</h1>
           <p>Handles user registration, and access control within the system.</p>
-          <Divider style={{ borderColor: "#ddd" }} />
+          <Divider className="table-divider" style={{ borderColor: "#ddd" }} />
           <Layout style={{ backgroundColor: "#fefefe" }}>
             <div className="table-top-parent">
               <div className="header-user">
@@ -216,7 +216,7 @@ function ManageUsers() {
           </Layout>
         </Content>
 
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={600}>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
           <h2 style={{ marginBottom: "16px", textAlign:'center' }}>
             {editingUser ? "Edit User" : "Add User"}
           </h2>
@@ -226,8 +226,8 @@ function ManageUsers() {
             form={form}
             layout="horizontal"
             onFinish={handleSubmit}
-            labelCol={{ span: 7 }}
-            wrapperCol={{ span: 17 }}
+            labelCol={{ flex: '150px'}}
+            wrapperCol={{ flex: 1}}
             labelAlign="left"
           >
             <Form.Item

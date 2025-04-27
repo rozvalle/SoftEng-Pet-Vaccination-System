@@ -199,7 +199,7 @@ function ManageVaccines() {
         <Content style={{ overflow: "hidden", padding: 35 }}>
           <h1 className="h1-user">Vaccine Management</h1>
           <p>Manages vaccine information such as name, manufacturer, and description</p>
-          <Divider style={{ borderColor: "#ddd" }} />
+          <Divider className="table-divider" style={{ borderColor: "#ddd" }} />
 
           <div className="table-top-parent-vaccine">
             <div className="header-user">
@@ -239,7 +239,7 @@ function ManageVaccines() {
           </Layout>
         </Content>
 
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={550}>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
           <h2 style={{ marginBottom: "16px", textAlign: 'center' }}>
             {editingVaccine ? "Edit Vaccine" : "Add Vaccine"}
           </h2>
@@ -249,8 +249,8 @@ function ManageVaccines() {
             form={form}
             layout="horizontal"
             onFinish={handleSubmit}
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 19 }}
+            labelCol={{ flex: '110px'}}
+            wrapperCol={{ flex: 1}}
             labelAlign="left"
           >
             <Form.Item

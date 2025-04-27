@@ -175,7 +175,7 @@ function ManageVaccinations() {
                 <Content style={{ overflow: "hidden", padding: 35 }}>
                     <h1 className="h1-user">Vaccination Management</h1>
                     <p>Track pet vaccinations, dates, and associated pets.</p>
-                    <Divider style={{ borderColor: "#ddd" }} />
+                    <Divider className="table-divider" style={{ borderColor: "#ddd" }} />
                     <div className="table-top-parent-pet">
                         <div className="header-user">
                             <Input.Search
@@ -217,7 +217,7 @@ function ManageVaccinations() {
                     </Layout>
                 </Content>
 
-                <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={550}>
+                <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
                     <h2 style={{ marginBottom: "16px", textAlign: 'center' }}>
                         {editingVaccination ? "Edit Vaccination" : "Add Vaccination"}
                     </h2>
@@ -227,8 +227,8 @@ function ManageVaccinations() {
                         form={form}
                         layout="horizontal"
                         onFinish={handleSubmit}
-                        labelCol={{ span: 7 }}
-                        wrapperCol={{ span: 17 }}
+                        labelCol={{ flex: '160px'}}
+                        wrapperCol={{ flex: 1}}
                         labelAlign="left"
                     >
                         <Form.Item
@@ -236,6 +236,7 @@ function ManageVaccinations() {
                             label="Vaccine Name"
                             rules={[{ required: true }]}
                             style={{ marginBottom: "12px" }}
+                            className="label-text"
                         >
                             <Select
                                 placeholder="Select vaccine"
@@ -266,7 +267,7 @@ function ManageVaccinations() {
                                 placeholder="Select a pet"
                                 allowClear
                                 options={pets.map(pet => ({
-                                    label: pet.pet_name,
+                                    label: "ID: " + pet.pet_id + " - " + pet.pet_name,
                                     value: pet.pet_id,
                                 }))}
                             />

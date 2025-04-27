@@ -224,7 +224,7 @@ return (
         <Content style={{ overflow: "hidden", padding: 35 }}>
         <h1 className="h1-user">Pet Management</h1>
         <p>Maintains pet profiles including name, species, breed, age, and owner association.</p>
-        <Divider style={{ borderColor: "#ddd" }} />
+        <Divider className='table-divider' style={{ borderColor: "#ddd" }} />
         <div className="table-top-parent-pet">
             <div className="header-user">
             <Input.Search
@@ -266,7 +266,7 @@ return (
         </Layout>
         </Content>
 
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={550}>
+        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
         <h2 style={{ marginBottom: "16px", textAlign: 'center' }}>
             {editingPet ? "Edit Pet" : "Add Pet"}
         </h2>
@@ -276,8 +276,8 @@ return (
             form={form}
             layout="horizontal"
             onFinish={handleSubmit}
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 19 }}
+            labelCol={{ flex: '100px'}}
+            wrapperCol={{ flex: 1}}
             labelAlign="left"
         >
             <Form.Item

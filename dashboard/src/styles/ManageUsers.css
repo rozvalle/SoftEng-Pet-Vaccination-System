@@ -35,7 +35,7 @@
   border-bottom: 1px solid #ddd !important;
 }
 
-.ant-divider {
+.table-divider {
     margin-left: -35px; /* Shift left to counter layout padding */
     margin-right: -35px; /* Shift right equally */
     width: calc(100% + 70px); /* Extend width beyond the padding */
