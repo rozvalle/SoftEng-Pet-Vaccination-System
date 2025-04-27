@@ -9,6 +9,7 @@ import Users from "./pages/Users";
 import Pets from "./pages/Pets";
 import Vaccines from "./pages/Vaccines";
 import Vaccinations from "./pages/ManageVaccinations";
+import About from "./pages/About";
 
 const PrivateRoute = () => {
   const token = sessionStorage.getItem("isAuthenticated");
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="pets/:id" element={<Pets />} />
             <Route path="vaccines/:id" element={<Vaccines />} />
             <Route path="vaccinations" element={<Vaccinations />} />
+            <Route path="about" element={<About />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />

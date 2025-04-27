@@ -1,6 +1,6 @@
 import { Layout, Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { UserOutlined, HomeOutlined, SettingOutlined, LogoutOutlined, UnorderedListOutlined, DashboardOutlined } from "@ant-design/icons";
+import { MailOutlined, LogoutOutlined, UnorderedListOutlined, DashboardOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import logo from "../assets/furcare_logo_light.png"; // Adjust path if necessary
 
 const { Sider } = Layout;
@@ -29,6 +29,8 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         { key: "/vaccinations", label: <Link to="/vaccinations">Manage Vaccinations</Link> },
 
     ]},
+    { key: "/contact", icon: <MailOutlined />, label: <Link to="/messages">Contact Us</Link> },
+    { key: "/about", icon: <InfoCircleOutlined />, label: <Link to="/about">About</Link> },
     { key: "divider", type: "divider", style: { borderTop: "2px solid rgba(255, 255, 255, 0.2)", margin: "12px 0" } },
     { key: "/login", icon: <LogoutOutlined />, label: <Link to="/login" onClick={handleLogout}>Logout</Link> },
   ];

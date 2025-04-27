@@ -120,6 +120,7 @@ const fetchDashboardCounts = async () => {
                 type="default"
                 icon={<CompassOutlined />}
                 style={{ marginTop: 16 }}
+                onClick={() => navigate("/about")}
               >
                 Explore Features
               </Button>
