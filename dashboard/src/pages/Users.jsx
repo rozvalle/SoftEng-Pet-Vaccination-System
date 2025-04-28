@@ -3,12 +3,14 @@ import axios from "axios";
 import { Layout, Descriptions, Spin, message, Button, Table, Card, Row, Col, Divider} from "antd";
 import { useParams } from "react-router-dom"; // If using React Router for dynamic routing
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
 const { Content } = Layout;
 
 function Users() {
   const [user, setUser] = useState(null);
   const [pets, setPets] = useState([]);
+  const [vaccinations, setVaccinations] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
@@ -24,15 +26,29 @@ function Users() {
     }
   };
 
+  const fetchVaccinations = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/details/vaccinations`);
+      console.log("Vaccination details:", response.data);
+      setVaccinations(response.data);
+      setLoading(false);
+    } catch (error) {
+      message.error("Error fetching vaccination details");
+      setLoading(false);
+    }
+  };
+
   const columns = [
-    { title: "ID", dataIndex: "user_id", key: "id" },
-    { title: "Vaccine Name", dataIndex: "user_fn", key: "user_fn" },
-    { title: "Pet Name", dataIndex: "user_ln", key: "user_ln" },
+    { title: "ID", dataIndex: "history_id", key: "history_id" },
+    { title: "Vaccine Name", dataIndex: "vaccine_name", key: "vaccine_name" },
+    { title: "Pet Name", dataIndex: "pet_name", key: "pet_name" },
+    { title: "Date Administered", dataIndex: "date_administered", key: "date_administered", render: (date) => date ? dayjs(date).format('MMMM D, YYYY') : '', },
   ]
   
   useEffect(() => {
     fetchUserDetails();
     fetchUserPets();
+    fetchVaccinations();
   }, [id]);
 
   const fetchUserDetails = async () => {
@@ -153,7 +169,7 @@ function Users() {
 
               <Divider orientation="left" style={{ marginTop: 50 }}>Vaccine History</Divider>
               <Table
-                bordered
+                dataSource={vaccinations}
                 columns={columns}
                 //dataSource={filteredUsers}
                 rowKey="id"
