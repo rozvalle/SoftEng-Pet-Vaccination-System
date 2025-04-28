@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { Layout, Descriptions, Spin, message, Button, Card, Divider, Table } from "antd";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import axios from "axios";
+import dayjs from "dayjs";
 import "../styles/Pets.css"; // Adjust the path as necessary
 
 const { Content } = Layout;
 
 function Pets() {
   const [pet, setPet] = useState(null);
-  const [vaccines, setVaccines] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [vaccination, setVaccinations] = useState([]);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPetDetails();
-    fetchPetVaccines();
+    fetchVaccinations();
   }, [id]);
 
   const fetchPetDetails = async () => {
@@ -31,18 +31,22 @@ function Pets() {
     }
   };
 
-  const fetchPetVaccines = async () => {
+  const fetchVaccinations = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/vaccinehistory/pet/${petId}`);
-      setVaccines(response.data);
+      const response = await axios.get(`http://localhost:5000/details/vaccinations`);
+      console.log("Vaccination details:", response.data);
+      setVaccinations(response.data);
+      setLoading(false);
     } catch (error) {
-      message.error("Error fetching vaccine history");
+      message.error("Error fetching vaccination details");
+      setLoading(false);
     }
   };
 
-  const vaccineColumns = [
+  const vaccineColumns = [  
+    { title: "ID", dataIndex: "history_id", key: "history_id" },
     { title: "Vaccine Name", dataIndex: "vaccine_name", key: "vaccine_name" },
-    { title: "Date Given", dataIndex: "date_given", key: "date_given" },
+    { title: "Date Given", dataIndex: "date_administered", key: "date_administered", render: (date) => date ? dayjs(date).format('MMMM D, YYYY') : '', },
   ];
 
   if (loading) {
@@ -109,7 +113,7 @@ function Pets() {
         <Table
           bordered
           columns={vaccineColumns}
-          dataSource={vaccines}
+          dataSource={vaccination}
           rowKey={(record) => record.history_id}
           pagination={{ pageSize: 5 }}
           style={{ marginTop: 20 }}
