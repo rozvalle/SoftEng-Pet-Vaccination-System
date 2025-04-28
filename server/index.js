@@ -71,6 +71,30 @@ app.get('/dashboard/counts', async (req, res) => {
   }
 });
 
+app.get("/details/vaccinations", async (_, res) => {
+  try {
+    const query = `
+      SELECT 
+        H.history_id,
+        P.pet_name,
+        V.vaccine_name,
+        H.date_administered
+      FROM TBL_VACCINEHISTORY AS H
+      JOIN TBL_PETS AS P 
+        ON H.PET_ID = P.PET_ID
+      JOIN TBL_VACCINE AS V 
+      ON H.VACCINE_ID = V.VACCINE_ID
+      ORDER BY H.HISTORY_ID ASC
+    `;
+    const [result] = await db.query(query);
+    console.log(result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
