@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout, Card, Typography, Row, Col, Button } from "antd";
 import { FolderOpenOutlined, CalendarOutlined, SmileOutlined, MailOutlined, PhoneOutlined, EnvironmentOutlined} from "@ant-design/icons";
-import { Link } from "react-router-dom";
 import "../styles/About.css"; // Adjust the path if necessary
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
