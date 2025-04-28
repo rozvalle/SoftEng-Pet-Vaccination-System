@@ -29,7 +29,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         { key: "/vaccinations", label: <Link to="/vaccinations">Manage Vaccinations</Link> },
 
     ]},
-    { key: "/contact", icon: <MailOutlined />, label: <Link to="/messages">Contact Us</Link> },
+    { key: "/contact", icon: <MailOutlined />, label: <Link to="/contact">Contact Us</Link> },
     { key: "/about", icon: <InfoCircleOutlined />, label: <Link to="/about">About</Link> },
     { key: "divider", type: "divider", style: { borderTop: "2px solid rgba(255, 255, 255, 0.2)", margin: "12px 0" } },
     { key: "/login", icon: <LogoutOutlined />, label: <Link to="/login" onClick={handleLogout}>Logout</Link> },
