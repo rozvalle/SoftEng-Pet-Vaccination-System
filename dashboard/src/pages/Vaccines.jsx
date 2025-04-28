@@ -61,13 +61,13 @@ function Vaccines() {
         </Button>
 
         <Card>
-          <h3 style={{ padding: 0, marginTop: 0 }}>Vaccine Details</h3>
+          {/*<h1 style={{ padding: 0, marginTop: 0 }}>Vaccine Details</h1> */}
           <div className="vaccine-details">
-            <div className='vaccine-details-image' style={{ flex: "0 0 250px" }}>
+            <div className='vaccine-details-image' style={{ flex: "0 0 40%", aspectRatio: "4/3" }}>
               <img
                 src={vaccine.vaccine_img || "https://archive.org/download/placeholder-image//placeholder-image.jpg"}
                 alt={vaccine.vaccine_name}
-                style={{ width: "100%", height: 250, objectFit: "cover", borderRadius: 8 }}
+                style={{ width: "100%", objectFit: "cover", borderRadius: 8 }}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "https://archive.org/download/placeholder-image//placeholder-image.jpg";
@@ -75,18 +75,16 @@ function Vaccines() {
               />
             </div>
 
-            <div style={{ alignItems: "center", display: "flex", paddingLeft: 20 }}>
+            <div style={{display: "flex", flexDirection:'column', paddingLeft: 20, width: "50%", justifyContent: "center"}}>
+              <h2 style={{textAlign:'left', padding: 0}}>{vaccine.vaccine_name}</h2>
               <Descriptions column={1}>
-                <Descriptions.Item label="Vaccine ID">{vaccine.vaccine_id}</Descriptions.Item>
-                <Descriptions.Item label="Name">{vaccine.vaccine_name}</Descriptions.Item>
-                <Descriptions.Item label="Description">{vaccine.vaccine_desc}</Descriptions.Item>
+                <Descriptions.Item label="ID">{vaccine.vaccine_id}</Descriptions.Item>
                 <Descriptions.Item label="Manufacturer">{vaccine.vaccine_man}</Descriptions.Item>
+                <Descriptions.Item label="Description">{vaccine.vaccine_desc}</Descriptions.Item>
               </Descriptions>
             </div>
           </div>
         </Card>
-
-        {/* No vaccine history table because you didn't ask for related vaccines */}
       </Content>
     </Layout>
   );
