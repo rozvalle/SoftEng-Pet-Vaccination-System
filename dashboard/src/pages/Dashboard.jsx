@@ -83,9 +83,11 @@ const fetchDashboardCounts = async () => {
   return (
     <Layout style={{ backgroundColor: "#fefefe", gap: "0px" }}>
       <Layout className="dashboard-profile" style={{ padding: "10px 20px 10px 20px", backgroundColor: "#fefefe" }}>
-        <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "14px"}}>
-          {dayjs().format('MMMM D, YYYY')} {dayjs().format('HH:mm')}
-        </Text>
+        <div className="dashboard-profile-date">
+          <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "14px"}}>
+            {dayjs().format('MMMM D, YYYY')}
+          </Text>
+        </div>
         <div className="dashboard-profile-user">
           <Avatar shape="square" size="large" icon={<UserOutlined />} />
           <div className="dashboard-profile-text">
