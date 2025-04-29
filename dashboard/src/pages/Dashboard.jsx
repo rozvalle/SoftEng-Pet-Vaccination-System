@@ -84,8 +84,8 @@ const fetchDashboardCounts = async () => {
     <Layout style={{ backgroundColor: "#fefefe", gap: "0px" }}>
       <Layout className="dashboard-profile" style={{ padding: "10px 20px 10px 20px", backgroundColor: "#fefefe" }}>
         <div className="dashboard-profile-date">
-          <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "14px"}}>
-            {dayjs().format('MMMM D, YYYY')}
+          <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "15px"}}>
+            Today, {dayjs().format('MMMM D')}
           </Text>
         </div>
         <div className="dashboard-profile-user">
@@ -133,17 +133,17 @@ const fetchDashboardCounts = async () => {
         <div className="dashboard-parent">
           <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
           <div className="dashboard-child">
-            <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total User</p>
+            <p style={{ marginBottom: "-15px", marginTop: '1px' }}>Total User</p>
             <p><b>{dashboardCounts.userCount}</b></p>
           </div>
           <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
           <div className="dashboard-child">
-            <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total Pets</p>
+            <p style={{ marginBottom: "-15px", marginTop: '1px' }}>Total Pets</p>
             <p><b>{dashboardCounts.petCount}</b></p>
           </div>
           <div style={{ width: "3px", height: "50px", backgroundColor: "#f0f0f0", margin: "0 8px" }} />
           <div className="dashboard-child">
-            <p style={{ marginBottom: "-10px", marginTop: '1px' }}>Total Vaccines Administered</p>
+            <p style={{ marginBottom: "-15px", marginTop: '1px' }}>Total Vaccines Administered</p>
             <p><b>{dashboardCounts.vaccineHistoryCount}</b></p>
           </div>
         </div>
