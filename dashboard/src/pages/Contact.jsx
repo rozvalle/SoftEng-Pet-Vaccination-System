@@ -17,7 +17,7 @@ return (
             </div>
         </div>
 
-        <div className="contact-content" style={{ width: '70%', padding: 35 }}>
+        <div className="contact-content" style={{ width: '70%', padding: 35, paddingBottom:0}}>
             <div style={{ marginBottom: '32px', width: "50%" }}>
                 <h1 style={{margin:0}}>Get in touch with us</h1><br />
                 <p><MailOutlined style={{ marginRight: 8 }} /> contact@yourdomain.com</p>
@@ -25,7 +25,7 @@ return (
                 <p><EnvironmentOutlined style={{ marginRight: 8 }} /> 1234 Main Street, Manila, Philippines</p>
             </div>
 
-            <div style={{ width: "50%" }}>
+            <div style={{ width: "50%"}}>
                 <Form layout="vertical">
                     <Form.Item label="Your Name" name="name" rules={[{ required: true, message: 'Please enter your name' }]}>
                     <Input placeholder="Enter your name" />
@@ -36,7 +36,7 @@ return (
                     </Form.Item>
 
                     <Form.Item label="Message" name="message" rules={[{ required: true, message: 'Please enter your message' }]}>
-                    <Input.TextArea rows={4} placeholder="Enter your message" />
+                    <Input.TextArea rows={4} style={{resize:'none'}} placeholder="Enter your message" />
                     </Form.Item>
 
                     <Form.Item>
