@@ -169,15 +169,12 @@ const fetchPetById = async (id) => {
 
 const handleSubmit = async (values) => {
     try {
-      const imgurl = imageBase64 || form.getFieldValue('imgurl'); // Use the Base64 string from state or form
-      console.log("Image URL (Base64):", imgurl); // Debugging log
-  
       const petData = {
         owner_id: values.owner_id,
         pet_name: values.name,
         pet_sex: values.sex,
         pet_species: values.species,
-        pet_img: imageBase64, // Include the Base64 string in the payload
+        pet_img: imageBase64,
       };
   
       console.log("Pet Data to Submit:", petData); // Debugging log
@@ -257,11 +254,11 @@ return (
         </div>
         <Layout style={{ backgroundColor: '#fefefe', borderRadius: 10 }}>
             <Table
-            columns={columns}
-            dataSource={filteredPets}
-            size="normal"
-            bordered
-            pagination={{ pageSize: 5 }}
+                columns={columns}
+                dataSource={filteredPets}
+                size="normal"
+                bordered
+                pagination={{ pageSize: 5 }}
             />
         </Layout>
         </Content>
