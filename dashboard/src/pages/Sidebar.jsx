@@ -49,7 +49,25 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       }}
     >
       <div className="logo" style={{ height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <img src={logo} alt="Logo" style={{ width: collapsed ? "35px" : "50px", transition: "width 0.3s ease" }} />
+        <img src={logo} alt="Logo" style={{ width: collapsed ? "25px" : "40px", transition: "width 0.3s ease" }} />
+        {!collapsed && (
+          <span
+          style={{
+            marginLeft: "10px",
+            color: "white",
+            fontSize: "24px",
+            fontWeight: "400",
+            opacity: collapsed ? 0 : 1,
+            maxWidth: collapsed ? 0 : 200,
+            transition: "opacity 0.4s ease, max-width 0.4s ease",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            display: "inline-block",
+          }}
+        >
+          furcare
+        </span>
+        )}
       </div>
       <Menu theme="dark" mode="inline" items={menuItems} selectedKeys={[selectedKey]} />
     </Sider>
