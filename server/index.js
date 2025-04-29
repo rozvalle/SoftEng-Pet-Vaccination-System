@@ -71,22 +71,26 @@ app.get('/dashboard/counts', async (req, res) => {
   }
 });
 
-app.get("/details/vaccinations", async (_, res) => {
+app.get("/details/vaccinations/:id", async (req, res) => {
   try {
+    const { id } = req.params; // Extract id from request body
     const query = `
       SELECT 
-        H.history_id,
-        P.pet_name,
-        V.vaccine_name,
-        H.date_administered
+      H.history_id,
+      P.pet_name,
+      V.vaccine_name,
+      H.date_administered
       FROM TBL_VACCINEHISTORY AS H
       JOIN TBL_PETS AS P 
-        ON H.PET_ID = P.PET_ID
+      ON H.PET_ID = P.PET_ID
       JOIN TBL_VACCINE AS V 
       ON H.VACCINE_ID = V.VACCINE_ID
+      JOIN tbl_users AS U 
+      ON P.OWNER_ID = U.USER_ID
+      WHERE U.USER_ID = ?
       ORDER BY H.HISTORY_ID ASC
     `;
-    const [result] = await db.query(query);
+    const [result] = await db.query(query, [id]); // Pass id as a parameter to the query
     console.log(result);
     res.json(result);
   } catch (err) {

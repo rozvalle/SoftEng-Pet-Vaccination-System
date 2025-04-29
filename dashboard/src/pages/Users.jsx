@@ -28,7 +28,7 @@ function Users() {
 
   const fetchVaccinations = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/details/vaccinations`);
+      const response = await axios.get(`http://localhost:5000/details/vaccinations/${id}`);
       console.log("Vaccination details:", response.data);
       setVaccinations(response.data);
       setLoading(false);
@@ -158,7 +158,7 @@ function Users() {
                           </Button>,
                         ]}
                       >
-                        <p><h3>{pet.pet_name}</h3></p>
+                        <h3>{pet.pet_name}</h3>
                         <p><strong>Species:</strong> {pet.pet_species}</p>
                         <p><strong>Sex:</strong> {pet.pet_sex}</p>
                       </Card>
