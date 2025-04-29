@@ -212,7 +212,7 @@ function ManageVaccinations() {
                             size="normal"
                             bordered
                             pagination={{ pageSize: 5 }}
-                            rowKey="vaccine_id"
+                            rowKey={(record) => record.history_id || record.vaccine_id}
                         />
                     </Layout>
                 </Content>
