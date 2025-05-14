@@ -325,19 +325,40 @@ return (
             />
             </Form.Item>
             <Form.Item name="imgurl" label="Image" rules={[{ required: false }]} style={{ marginBottom: 0 }}>
-                <div style={{ display: 'flex', flexDirection: 'column'}}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <Upload
-                        beforeUpload={handleBeforeUpload}
-                        showUploadList={false}
+                    beforeUpload={handleBeforeUpload}
+                    showUploadList={false}
                     >
-                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
                     </Upload>
                     {imageBase64 && (
-                        <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, width: "200px", maxHeight: "200px", objectFit: "contain", borderRadius:5 }} />
+                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
+                        <img
+                        src={imageBase64}
+                        alt="Uploaded"
+                        style={{
+                            width: "200px",
+                            maxHeight: "200px",
+                            objectFit: "contain",
+                            borderRadius: 5,
+                            marginRight: 10,
+                        }}
+                        />
+                        <Button
+                            type="danger"
+                            onClick={() => {
+                                setImageBase64(null);
+                                form.setFieldsValue({ imgurl: null }); 
+                        }}
+                        >
+                            <DeleteOutlined style={{ color: "red", fontSize:'16px' }} />
+                        </Button>
+                    </div>
                     )}
                 </div>
                 <p style={{ color: 'red', marginTop: '8px' }}>Note: Maximum file size is 5MB.</p>
-            </Form.Item>
+                </Form.Item>
 
             <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
             <Button
