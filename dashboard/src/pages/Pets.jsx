@@ -1,5 +1,5 @@
 import React, { useState, useEffect, use } from "react";
-import { Layout, Descriptions, Spin, message, Button, Card, Divider, Table } from "antd";
+import { Layout, Descriptions, Spin, message, Button, Card, Divider, Table, Row, Col, Image } from "antd";
 import { useParams } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -33,7 +33,7 @@ function Pets() {
 
   const fetchVaccinations = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/details/vaccinations`);
+      const response = await axios.get(`http://localhost:5000/pets/vaccinations/${id}`);
       console.log("Vaccination details:", response.data);
       setVaccinations(response.data);
       setLoading(false);
@@ -79,33 +79,37 @@ function Pets() {
           >
             Back to Pets List
           </Button>
-
-        <Card>
-            <h3 style={{ padding: 0, marginTop: 0}}>Pet Details</h3>
-            <div className="pet-details">
-                <div className='pet-details-image' style={{ flex: "0 0 250px" }}>
-                <img
-                    src={pet.pet_img || "https://archive.org/download/placeholder-image//placeholder-image.jpg"}
-                    alt={pet.pet_name}
-                    style={{ width: 350, height: 250, objectFit: "cover", borderRadius: 8 }}
-                    onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "https://archive.org/download/placeholder-image//placeholder-image.jpg";
-                    }}
-                />
-                </div>
-                <div style={{ alignItems: "center", display: "flex", paddingLeft: 20 }}>
-                <Descriptions column={1}>
+        <Card style={{ border: "none", height: '330px' }}>
+        <Row gutter={[30, 20]}>
+          <Col flex="400px">
+            <Image
+                src={pet.pet_img || "https://archive.org/download/placeholder-image//placeholder-image.jpg"}
+                alt={pet.pet_name}
+                style={{ width: 380, height: 280, objectFit: "cover", borderRadius: 8 }}
+                onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://archive.org/download/placeholder-image//placeholder-image.jpg";
+                }}
+            />
+          </Col>
+          <Col flex="auto">
+            <Descriptions
+              title="Pet Information"
+              bordered
+              column={1}
+              size="middle"
+              style={{ height: "100%" }}
+            >
                     <Descriptions.Item label="Pet ID">{pet.pet_id}</Descriptions.Item>
                     <Descriptions.Item label="Name">{pet.pet_name}</Descriptions.Item>
                     <Descriptions.Item label="Sex">{pet.pet_sex}</Descriptions.Item>
                     <Descriptions.Item label="Species">{pet.pet_species}</Descriptions.Item>
                     <Descriptions.Item label="Owner">{pet.owner_name}</Descriptions.Item>
-                </Descriptions>
-                </div>
-            </div>
-        </Card>
-
+            </Descriptions>
+          </Col>
+        </Row>
+      </Card>
+      
         <Divider orientation="left" style={{ marginTop: 50 }}>
           Vaccine History
         </Divider>
