@@ -39,8 +39,20 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    console.log("Fetching pet with ID:", id); // Debugging line
-    const [result] = await db.query("SELECT * FROM tbl_pets WHERE pet_id = ?", [id]);
+    const query = `
+      SELECT 
+        p.pet_id, 
+        p.pet_name, 
+        p.pet_sex, 
+        p.pet_species, 
+        p.pet_img, 
+        p.owner_id, 
+        CONCAT(u.user_fn, ' ', u.user_ln) AS owner_name
+      FROM tbl_pets p
+      JOIN tbl_users u ON p.owner_id = u.user_id
+      WHERE p.pet_id = ?
+    `;
+    const [result] = await db.query(query, [id]);
     res.json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });
