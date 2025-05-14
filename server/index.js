@@ -98,6 +98,28 @@ app.get("/details/vaccinations/:id", async (req, res) => {
   }
 });
 
+app.get("/pets/vaccinations/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Extract id from request body
+    const query = `
+      SELECT 
+      H.history_id,
+      V.vaccine_name,
+      H.date_administered
+      FROM tbl_vaccinehistory AS H
+      JOIN tbl_vaccine AS V 
+      ON H.vaccine_id = V.vaccine_id
+      WHERE H.pet_id = ?
+      ORDER BY H.HISTORY_ID ASC
+    `;
+    const [result] = await db.query(query, [id]); // Pass id as a parameter to the query
+    console.log(result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
