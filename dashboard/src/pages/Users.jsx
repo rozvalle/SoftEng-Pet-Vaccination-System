@@ -21,7 +21,7 @@ function Users() {
       setPets(response.data);
       setLoading(false);
     } catch (error) {
-      message.error("Error fetching user details");
+      message.error("Error fetching pet details");
       setLoading(false);
     }
   };
@@ -54,7 +54,6 @@ function Users() {
   const fetchUserDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/users/${id}`);
-      console.log("User Details:", response.data); // Log the response data
       setUser(response.data[0]);
       setLoading(false);
     } catch (error) {
