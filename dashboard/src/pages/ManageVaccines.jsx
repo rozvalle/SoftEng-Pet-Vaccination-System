@@ -293,11 +293,22 @@ function ManageVaccines() {
                     >
                         <Button icon={<UploadOutlined />}>Click to Upload</Button>
                     </Upload>
+                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
                     {imageBase64 && (
                         <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, width: "200px", maxHeight: "200px", objectFit: "contain", borderRadius:5 }} />
                     )}
+                    <Button
+                          type="danger"
+                          onClick={() => {
+                              setImageBase64(null);
+                              form.setFieldsValue({ imgurl: null }); 
+                      }}
+                      >
+                          <DeleteOutlined style={{ color: "red", fontSize:'16px' }} />
+                      </Button>
+                    </div>
                 </div>
-                <p style={{ color: 'red', marginTop: '8px' }}>Note: Maximum file size is 5MB.</p>
+                <p style={{ color: 'red', marginTop: '8px', marginBottom: '-10px' }}>Note: Maximum file size is 5MB.</p>
             </Form.Item>
 
             <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
