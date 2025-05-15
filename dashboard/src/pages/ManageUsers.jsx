@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider, Spin} from "antd";
+import { Layout, Button, Table, Modal, Form, Input, message, Popconfirm, Divider, Spin } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import "../styles/ManageUsers.css";
 
@@ -31,21 +31,21 @@ function ManageUsers() {
   };
 
   if (loading) {
-      return (
-        <Layout style={{ minHeight: "100vh" }}>
-          <Content
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100vh",
-            }}
-          >
-            <Spin size="large" />
-          </Content>
-        </Layout>
-      );
-    }
+    return (
+      <Layout style={{ minHeight: "100vh" }}>
+        <Content
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Spin size="large" />
+        </Content>
+      </Layout>
+    );
+  }
 
 
   const handleSubmit = async (values) => {
@@ -60,7 +60,7 @@ function ManageUsers() {
 
       let response;
 
-      if(values.password !== values.confirm) {
+      if (values.password !== values.confirm) {
         message.error("Oops! Password does not match.");
         return;
       }
@@ -130,10 +130,11 @@ function ManageUsers() {
       key: "actions",
       render: (_, record) => (
         <div style={{ display: "flex", width: "100%", justifyContent: "right" }}>
-           <Button
+          <Button
             icon={<InfoCircleOutlined />}
             style={{ marginRight: 8, width: 60 }}
-            onClick={() => { window.location.href = `http://localhost:5173/users/${record.user_id}`;
+            onClick={() => {
+              window.location.href = `http://localhost:5173/users/${record.user_id}`;
             }}
           />
           <Button
@@ -217,17 +218,17 @@ function ManageUsers() {
         </Content>
 
         <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
-          <h2 style={{ marginBottom: "16px", textAlign:'center' }}>
+          <h2 style={{ marginBottom: "16px", textAlign: 'center' }}>
             {editingUser ? "Edit User" : "Add User"}
           </h2>
-          <p style={{textAlign:'center'}}>A pop-up form to quickly add new user details.</p>
-          
+          <p style={{ textAlign: 'center' }}>A pop-up form to quickly add new user details.</p>
+
           <Form
             form={form}
             layout="horizontal"
             onFinish={handleSubmit}
-            labelCol={{ flex: '150px'}}
-            wrapperCol={{ flex: 1}}
+            labelCol={{ flex: '150px' }}
+            wrapperCol={{ flex: 1 }}
             labelAlign="left"
           >
             <Form.Item
@@ -276,10 +277,10 @@ function ManageUsers() {
               style={{ marginBottom: "12px" }}
             >
               <Input placeholder="Create a unique username"
-                    onChange={(e) => {
-                      const alphanumericOnly = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
-                      form.setFieldsValue({ username: alphanumericOnly });
-                    }}
+                onChange={(e) => {
+                  const alphanumericOnly = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+                  form.setFieldsValue({ username: alphanumericOnly });
+                }}
               />
             </Form.Item>
             <Form.Item
@@ -298,7 +299,7 @@ function ManageUsers() {
             >
               <Input.Password placeholder="Confirm password" />
             </Form.Item>
-            
+
             <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
               <Button
                 type="primary"

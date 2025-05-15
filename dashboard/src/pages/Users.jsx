@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout, Descriptions, Spin, message, Button, Table, Card, Row, Col, Divider} from "antd";
+import { Layout, Descriptions, Spin, message, Button, Table, Card, Row, Col, Divider } from "antd";
 import { useParams } from "react-router-dom"; // If using React Router for dynamic routing
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -44,7 +44,7 @@ function Users() {
     { title: "Pet Name", dataIndex: "pet_name", key: "pet_name" },
     { title: "Date Administered", dataIndex: "date_administered", key: "date_administered", render: (date) => date ? dayjs(date).format('MMMM D, YYYY') : '', },
   ]
-  
+
   useEffect(() => {
     fetchUserDetails();
     fetchUserPets();
@@ -108,15 +108,15 @@ function Users() {
             </div>
           ) : (
             <>
-                <Card title="User Information" style={{ marginBottom: 30 }}>
-                  <Descriptions layout="vertical" column={3}>
-                    <Descriptions.Item label="User ID">{user.user_id}</Descriptions.Item>
-                    <Descriptions.Item label="First Name">{user.user_fn}</Descriptions.Item>
-                    <Descriptions.Item label="Middle Name">{user.user_mn}</Descriptions.Item>
-                    <Descriptions.Item label="Last Name">{user.user_ln}</Descriptions.Item>
-                    <Descriptions.Item label="Username">{user.user_name}</Descriptions.Item>
-                  </Descriptions>
-                </Card>
+              <Card title="User Information" style={{ marginBottom: 30 }}>
+                <Descriptions layout="vertical" column={3}>
+                  <Descriptions.Item label="User ID">{user.user_id}</Descriptions.Item>
+                  <Descriptions.Item label="First Name">{user.user_fn}</Descriptions.Item>
+                  <Descriptions.Item label="Middle Name">{user.user_mn}</Descriptions.Item>
+                  <Descriptions.Item label="Last Name">{user.user_ln}</Descriptions.Item>
+                  <Descriptions.Item label="Username">{user.user_name}</Descriptions.Item>
+                </Descriptions>
+              </Card>
 
               <Divider orientation="left" style={{ marginTop: 50 }}>Pets Owned</Divider>
               {pets.length === 0 ? (
@@ -151,7 +151,7 @@ function Users() {
                             onClick={() => {
                               message.info(`Viewing details for ${pet.pet_name}`);
                             }}
-                            href= {`/pets/${pet.pet_id}`}
+                            href={`/pets/${pet.pet_id}`}
                           >
                             View Info
                           </Button>,

@@ -227,8 +227,8 @@ function ManageVaccinations() {
                         form={form}
                         layout="horizontal"
                         onFinish={handleSubmit}
-                        labelCol={{ flex: '160px'}}
-                        wrapperCol={{ flex: 1}}
+                        labelCol={{ flex: '160px' }}
+                        wrapperCol={{ flex: 1 }}
                         labelAlign="left"
                     >
                         <Form.Item

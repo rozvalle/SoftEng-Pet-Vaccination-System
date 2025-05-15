@@ -1,7 +1,7 @@
-import { Layout, Card, Row, Typography, Button, Avatar} from "antd";
+import { Layout, Card, Row, Typography, Button, Avatar } from "antd";
 import { useNavigate } from "react-router-dom";
-import { 
-  HeartOutlined, 
+import {
+  HeartOutlined,
   MedicineBoxOutlined,
   UserOutlined,
   SmileOutlined,
@@ -9,7 +9,7 @@ import {
   CompassOutlined,
 } from "@ant-design/icons";
 import dayjs from "dayjs";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 import axios from "axios";
 
@@ -26,50 +26,50 @@ export default function Dashboard() {
   useEffect(() => {
     fetchDashboardCounts();
   }, []);
-  
-const fetchDashboardCounts = async () => {
-  try {
-    const response = await axios.get('http://localhost:5000/dashboard/counts');
-    console.log("Dashboard Counts:", response.data); // Log the response data
-    setDashboardCounts({
-      userCount: response.data.user_count,
-      petCount: response.data.pet_count,
-      vaccineHistoryCount: response.data.vaccinehistory_count,
-    });
 
-    console.log(response.data);
-  } catch (error) {
-    console.error('Failed to fetch dashboard counts:', error);
-    throw error;
-  }
-};
+  const fetchDashboardCounts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/dashboard/counts');
+      console.log("Dashboard Counts:", response.data); // Log the response data
+      setDashboardCounts({
+        userCount: response.data.user_count,
+        petCount: response.data.pet_count,
+        vaccineHistoryCount: response.data.vaccinehistory_count,
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error('Failed to fetch dashboard counts:', error);
+      throw error;
+    }
+  };
 
   const features = [
-    { 
-      title: "Manage Pets", 
-      description: "View and update pet records and details.", 
-      icon: <HeartOutlined />, 
+    {
+      title: "Manage Pets",
+      description: "View and update pet records and details.",
+      icon: <HeartOutlined />,
       path: "/pets",
       gradient: "linear-gradient(135deg, #001529 0%, #2b3c53 100%)"
     },
-    { 
-      title: "Manage User", 
-      description: "Register, and manage users in the database.", 
-      icon: <UserOutlined />, 
+    {
+      title: "Manage User",
+      description: "Register, and manage users in the database.",
+      icon: <UserOutlined />,
       path: "/users",
       gradient: "linear-gradient(135deg, #2b3c53 0%, #586882 100%)"
     },
-    { 
-      title: "Manage Vaccinations", 
-      description: "Define breeds for each pet species.", 
-      icon: <FileTextOutlined />, 
+    {
+      title: "Manage Vaccinations",
+      description: "Define breeds for each pet species.",
+      icon: <FileTextOutlined />,
       path: "/vaccinations",
       gradient: "linear-gradient(135deg, #586882 0%, #8898b3 100%)"
     },
-    { 
-      title: "Manage Vaccines", 
-      description: "Register vaccines for pet health records.", 
-      icon: <MedicineBoxOutlined />, 
+    {
+      title: "Manage Vaccines",
+      description: "Register vaccines for pet health records.",
+      icon: <MedicineBoxOutlined />,
       path: "/vaccines",
       gradient: "linear-gradient(135deg, #00415a 0%, #00727a 100%)"
     },
@@ -84,7 +84,7 @@ const fetchDashboardCounts = async () => {
     <Layout style={{ backgroundColor: "#fefefe", gap: "0px" }}>
       <Layout className="dashboard-profile" style={{ padding: "10px 20px 10px 20px", backgroundColor: "#fefefe" }}>
         <div className="dashboard-profile-date">
-          <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "15px"}}>
+          <Text type="secondary" style={{ color: "#000", fontWeight: 600, fontSize: "15px" }}>
             Today, {dayjs().format('MMMM D')}
           </Text>
         </div>
@@ -95,7 +95,7 @@ const fetchDashboardCounts = async () => {
               {sessionStorage.getItem("username")}
             </Text>
             <Text style={{ marginLeft: "10px", fontSize: "12px", color: "#000" }} type="secondary">
-              <a href="/login" onClick={ handleLogout }>Logout</a>
+              <a href="/login" onClick={handleLogout}>Logout</a>
             </Text>
           </div>
         </div>

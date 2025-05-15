@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dayjs from "dayjs";
-import "../styles/Pets.css"; // Adjust the path as necessary
+import "../styles/Pets.css";
 
 const { Content } = Layout;
 
@@ -21,7 +21,6 @@ function Pets() {
 
   const fetchPetDetails = async () => {
     try {
-        console.log("Fetching pet details for ID:", id); // Log the petId being fetched
       const response = await axios.get(`http://localhost:5000/pets/${id}`);
       setPet(response.data[0]);
       setLoading(false);
@@ -43,7 +42,7 @@ function Pets() {
     }
   };
 
-  const vaccineColumns = [  
+  const vaccineColumns = [
     { title: "ID", dataIndex: "history_id", key: "history_id" },
     { title: "Vaccine Name", dataIndex: "vaccine_name", key: "vaccine_name" },
     { title: "Date Given", dataIndex: "date_administered", key: "date_administered", render: (date) => date ? dayjs(date).format('MMMM D, YYYY') : '', },
@@ -72,44 +71,44 @@ function Pets() {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Content style={{ padding: 35 }}>
-          <Button
-            icon={<ArrowLeftOutlined />}
-            href="/pets"
-            style={{ marginBottom: "20px" }}
-          >
-            Back to Pets List
-          </Button>
+        <Button
+          icon={<ArrowLeftOutlined />}
+          href="/pets"
+          style={{ marginBottom: "20px" }}
+        >
+          Back to Pets List
+        </Button>
         <Card style={{ border: "none", height: '330px' }}>
-        <Row gutter={[30, 20]}>
-          <Col flex="400px">
-            <Image
+          <Row gutter={[30, 20]}>
+            <Col flex="400px">
+              <Image
                 src={pet.pet_img || "https://archive.org/download/placeholder-image//placeholder-image.jpg"}
                 alt={pet.pet_name}
                 style={{ width: 380, height: 280, objectFit: "cover", borderRadius: 8 }}
                 onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://archive.org/download/placeholder-image//placeholder-image.jpg";
+                  e.target.onerror = null;
+                  e.target.src = "https://archive.org/download/placeholder-image//placeholder-image.jpg";
                 }}
-            />
-          </Col>
-          <Col flex="auto">
-            <Descriptions
-              title="Pet Information"
-              bordered
-              column={1}
-              size="middle"
-              style={{ height: "100%" }}
-            >
-                    <Descriptions.Item label="Pet ID">{pet.pet_id}</Descriptions.Item>
-                    <Descriptions.Item label="Name">{pet.pet_name}</Descriptions.Item>
-                    <Descriptions.Item label="Sex">{pet.pet_sex}</Descriptions.Item>
-                    <Descriptions.Item label="Species">{pet.pet_species}</Descriptions.Item>
-                    <Descriptions.Item label="Owner">{pet.owner_name}</Descriptions.Item>
-            </Descriptions>
-          </Col>
-        </Row>
-      </Card>
-      
+              />
+            </Col>
+            <Col flex="auto">
+              <Descriptions
+                title="Pet Information"
+                bordered
+                column={1}
+                size="middle"
+                style={{ height: "100%" }}
+              >
+                <Descriptions.Item label="Pet ID">{pet.pet_id}</Descriptions.Item>
+                <Descriptions.Item label="Name">{pet.pet_name}</Descriptions.Item>
+                <Descriptions.Item label="Sex">{pet.pet_sex}</Descriptions.Item>
+                <Descriptions.Item label="Species">{pet.pet_species}</Descriptions.Item>
+                <Descriptions.Item label="Owner">{pet.owner_name}</Descriptions.Item>
+              </Descriptions>
+            </Col>
+          </Row>
+        </Card>
+
         <Divider orientation="left" style={{ marginTop: 50 }}>
           Vaccine History
         </Divider>

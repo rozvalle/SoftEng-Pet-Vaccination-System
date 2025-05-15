@@ -10,15 +10,15 @@ export default function MainLayout() {
     JSON.parse(localStorage.getItem("sidebarCollapsed")) || false
   );
 
-  const siderWidth = collapsed ? 80 : 300; 
+  const siderWidth = collapsed ? 80 : 300;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} /> 
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
       <Layout
         style={{
-          marginLeft: siderWidth, 
+          marginLeft: siderWidth,
           transition: "margin-left 0.3s ease",
         }}
       >

@@ -149,16 +149,16 @@ function ManageVaccines() {
     }
   };
 
-const handleDelete = async (id) => {
-  try {
-    await axios.delete(`http://localhost:5000/vaccines/${id}`);
-    message.success("Vaccine deleted successfully");
-    fetchVaccines();
-  } catch (error) {
-    console.error("Delete error:", error.response?.data);
-    message.error(error.response?.data?.error || "Error deleting vaccine");
-  }
-};
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/vaccines/${id}`);
+      message.success("Vaccine deleted successfully");
+      fetchVaccines();
+    } catch (error) {
+      console.error("Delete error:", error.response?.data);
+      message.error(error.response?.data?.error || "Error deleting vaccine");
+    }
+  };
 
 
 
@@ -252,8 +252,8 @@ const handleDelete = async (id) => {
             form={form}
             layout="horizontal"
             onFinish={handleSubmit}
-            labelCol={{ flex: '110px'}}
-            wrapperCol={{ flex: 1}}
+            labelCol={{ flex: '110px' }}
+            wrapperCol={{ flex: 1 }}
             labelAlign="left"
           >
             <Form.Item
@@ -294,29 +294,29 @@ const handleDelete = async (id) => {
               required
               style={{ marginBottom: "24px" }}
             >
-                <div style={{ display: 'flex', flexDirection: 'column'}}>
-                    <Upload
-                        beforeUpload={handleBeforeUpload}
-                        showUploadList={false}
-                    >
-                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
-                    {imageBase64 && (
-                        <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, width: "200px", maxHeight: "200px", objectFit: "contain", borderRadius:5 }} />
-                    )}
-                    <Button
-                          type="danger"
-                          onClick={() => {
-                              setImageBase64(null);
-                              form.setFieldsValue({ imgurl: null }); 
-                      }}
-                      >
-                          <DeleteOutlined style={{ color: "red", fontSize:'16px' }} />
-                      </Button>
-                    </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <Upload
+                  beforeUpload={handleBeforeUpload}
+                  showUploadList={false}
+                >
+                  <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                </Upload>
+                <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
+                  {imageBase64 && (
+                    <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, width: "200px", maxHeight: "200px", objectFit: "contain", borderRadius: 5 }} />
+                  )}
+                  <Button
+                    type="danger"
+                    onClick={() => {
+                      setImageBase64(null);
+                      form.setFieldsValue({ imgurl: null });
+                    }}
+                  >
+                    <DeleteOutlined style={{ color: "red", fontSize: '16px' }} />
+                  </Button>
                 </div>
-                <p style={{ color: 'red', marginTop: '8px', marginBottom: '-10px' }}>Note: Maximum file size is 5MB.</p>
+              </div>
+              <p style={{ color: 'red', marginTop: '8px', marginBottom: '-10px' }}>Note: Maximum file size is 5MB.</p>
             </Form.Item>
 
             <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>

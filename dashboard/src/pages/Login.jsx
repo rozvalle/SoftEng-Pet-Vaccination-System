@@ -1,4 +1,4 @@
-import { Form, Input, Button, message, Checkbox, Carousel} from "antd";
+import { Form, Input, Button, message, Checkbox, Carousel } from "antd";
 import banner1 from "../assets/banner1.jpg";
 import banner2 from "../assets/banner2.jpg";
 import banner3 from "../assets/banner3.jpg";
@@ -7,7 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import logo from "../assets/furcare_logo.png"; 
+import logo from "../assets/furcare_logo.png";
 
 export default function Login() {
   const bannerImages = [
@@ -27,7 +27,7 @@ export default function Login() {
       sessionStorage.setItem("isAuthenticated", true);
       sessionStorage.setItem("username", values.username);
 
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       message.error(error.response?.data?.error || "Invalid username or password");
     } finally {
@@ -41,10 +41,10 @@ export default function Login() {
         <Carousel autoplay effect="fade">
           {[1, 2, 3].map((num) => (
             <div key={num}>
-              <img 
-                src={bannerImages[num - 1]} 
-                alt={`Slide ${num}`} 
-                style={{ width: "100%", height:"100vh", objectFit: "cover"}} 
+              <img
+                src={bannerImages[num - 1]}
+                alt={`Slide ${num}`}
+                style={{ width: "100%", height: "100vh", objectFit: "cover" }}
               />
             </div>
           ))}
@@ -52,7 +52,7 @@ export default function Login() {
       </div>
       <div className="login-form">
         <div className="login-logo">
-          <img src={logo} alt="Logo" style={{ width:"50px"}} />
+          <img src={logo} alt="Logo" style={{ width: "50px" }} />
           <h1>Login to your Account</h1>
           <p>Welcome Back! Please Enter Your Details</p>
         </div>
@@ -75,7 +75,7 @@ export default function Login() {
             <Checkbox>Remember Me</Checkbox>
           </Form.Item>
           <Form.Item>
-            <Button className="custom-button" type="primary" htmlType="submit" style={{ width: "100%", borderColor:"#001529", height:"40px", borderRadius:"50px"}} loading={loading}>
+            <Button className="custom-button" type="primary" htmlType="submit" style={{ width: "100%", borderColor: "#001529", height: "40px", borderRadius: "50px" }} loading={loading}>
               Login
             </Button>
           </Form.Item>

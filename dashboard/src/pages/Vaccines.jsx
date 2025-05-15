@@ -75,8 +75,8 @@ function Vaccines() {
               />
             </div>
 
-            <div style={{display: "flex", flexDirection:'column', paddingLeft: 20, width: "50%", justifyContent: "center"}}>
-              <h2 style={{textAlign:'left', padding: 0}}>{vaccine.vaccine_name}</h2>
+            <div style={{ display: "flex", flexDirection: 'column', paddingLeft: 20, width: "50%", justifyContent: "center" }}>
+              <h2 style={{ textAlign: 'left', padding: 0 }}>{vaccine.vaccine_name}</h2>
               <Descriptions column={1}>
                 <Descriptions.Item label="ID">{vaccine.vaccine_id}</Descriptions.Item>
                 <Descriptions.Item label="Manufacturer">{vaccine.vaccine_man}</Descriptions.Item>

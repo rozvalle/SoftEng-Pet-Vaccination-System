@@ -5,7 +5,7 @@ import logo from "../assets/furcare_logo_light.png"; // Adjust path if necessary
 
 const { Sider } = Layout;
 
-export default function Sidebar({ collapsed, setCollapsed }) { 
+export default function Sidebar({ collapsed, setCollapsed }) {
   const location = useLocation();
   const selectedKey = location.pathname;
 
@@ -21,14 +21,16 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
   const menuItems = [
     { key: "/", icon: <DashboardOutlined />, label: <Link to="/">Dashboard</Link> },
-    { key: "management", icon: <UnorderedListOutlined />, label: "Management",
+    {
+      key: "management", icon: <UnorderedListOutlined />, label: "Management",
       children: [
         { key: "/users", label: <Link to="/users">Manage User</Link> },
         { key: "/pets", label: <Link to="/pets">Manage Pet</Link> },
         { key: "/vaccines", label: <Link to="/vaccines">Manage Vaccine</Link> },
         { key: "/vaccinations", label: <Link to="/vaccinations">Manage Vaccinations</Link> },
 
-    ]},
+      ]
+    },
     { key: "/contact", icon: <MailOutlined />, label: <Link to="/contact">Contact Us</Link> },
     { key: "/about", icon: <InfoCircleOutlined />, label: <Link to="/about">About</Link> },
     { key: "divider", type: "divider", style: { borderTop: "2px solid rgba(255, 255, 255, 0.2)", margin: "12px 0" } },
@@ -52,21 +54,21 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         <img src={logo} alt="Logo" style={{ width: collapsed ? "25px" : "40px", transition: "width 0.3s ease" }} />
         {!collapsed && (
           <span
-          style={{
-            marginLeft: "10px",
-            color: "white",
-            fontSize: "24px",
-            fontWeight: "400",
-            opacity: collapsed ? 0 : 1,
-            maxWidth: collapsed ? 0 : 200,
-            transition: "opacity 0.4s ease, max-width 0.4s ease",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            display: "inline-block",
-          }}
-        >
-          furcare
-        </span>
+            style={{
+              marginLeft: "10px",
+              color: "white",
+              fontSize: "24px",
+              fontWeight: "400",
+              opacity: collapsed ? 0 : 1,
+              maxWidth: collapsed ? 0 : 200,
+              transition: "opacity 0.4s ease, max-width 0.4s ease",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              display: "inline-block",
+            }}
+          >
+            furcare
+          </span>
         )}
       </div>
       <Menu theme="dark" mode="inline" items={menuItems} selectedKeys={[selectedKey]} />
