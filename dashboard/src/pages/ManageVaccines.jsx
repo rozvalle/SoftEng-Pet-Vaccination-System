@@ -279,7 +279,12 @@ function ManageVaccines() {
               label="Manufacturer"
               style={{ marginBottom: "12px" }}
             >
-              <Input placeholder="e.g. MSD Animal Health" />
+              <Input placeholder="e.g. MSD Animal Health"
+                onChange={(e) => {
+                  const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                  form.setFieldsValue({ manufacturer: lettersOnly });
+                }}
+              />
             </Form.Item>
             <Form.Item
               label="Image"

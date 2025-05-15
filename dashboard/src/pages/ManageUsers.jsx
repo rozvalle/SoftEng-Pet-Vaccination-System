@@ -236,7 +236,12 @@ function ManageUsers() {
               rules={[{ required: true }]}
               style={{ marginBottom: "12px" }}
             >
-              <Input placeholder="Enter first name" />
+              <Input placeholder="Enter first name"
+                onChange={(e) => {
+                  const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                  form.setFieldsValue({ firstname: lettersOnly });
+                }}
+              />
             </Form.Item>
             <Form.Item
               name="lastname"
@@ -244,14 +249,24 @@ function ManageUsers() {
               rules={[{ required: true }]}
               style={{ marginBottom: "12px" }}
             >
-              <Input placeholder="Enter last name" />
+              <Input placeholder="Enter last name"
+                onChange={(e) => {
+                  const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                  form.setFieldsValue({ lastname: lettersOnly });
+                }}
+              />
             </Form.Item>
             <Form.Item
               name="middlename"
               label="Middle Name"
               style={{ marginBottom: "12px" }}
             >
-              <Input placeholder="Enter middle name(optional)" />
+              <Input placeholder="Enter middle name(optional)"
+                onChange={(e) => {
+                  const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                  form.setFieldsValue({ middlename: lettersOnly });
+                }}
+              />
             </Form.Item>
             <Divider></Divider>
             <Form.Item
@@ -260,7 +275,12 @@ function ManageUsers() {
               rules={[{ required: true }]}
               style={{ marginBottom: "12px" }}
             >
-              <Input placeholder="Create a unique username" />
+              <Input placeholder="Create a unique username"
+                    onChange={(e) => {
+                      const alphanumericOnly = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+                      form.setFieldsValue({ username: alphanumericOnly });
+                    }}
+              />
             </Form.Item>
             <Form.Item
               name="password"

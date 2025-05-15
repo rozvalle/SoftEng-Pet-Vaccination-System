@@ -217,163 +217,168 @@ const handleDelete = async (id) => {
 
 return (
     <Layout style={{ minHeight: "100vh" }}>
-    <Layout style={{ background: "#fefefe", padding: 0 }}>
-        <Content style={{ overflow: "hidden", padding: 35 }}>
-        <h1 className="h1-user">Pet Management</h1>
-        <p>Maintains pet profiles including name, species, breed, age, and owner association.</p>
-        <Divider className='table-divider' style={{ borderColor: "#ddd" }} />
-        <div className="table-top-parent-pet">
-            <div className="header-user">
-            <Input.Search
-                placeholder="Search pet..."
-                onChange={(e) => handleSearch(e.target.value)}
-                value={searchText}
-                style={{ width: 300 }}
-                allowClear
-            />
-            </div>
-            <div className="table-top-search">
-            <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                style={{
-                height: "35px",
-                backgroundColor: "#001529",
-                borderColor: "#001529"
-                }}
-                onClick={() => {
-                setEditingPet(null);
-                form.resetFields();
-                setImageBase64(null);
-                setIsModalOpen(true);
-                }}
-            >
-                Add Pet
-            </Button>
-            </div>
-        </div>
-        <Layout style={{ backgroundColor: '#fefefe', borderRadius: 10 }}>
-            <Table
-                columns={columns}
-                dataSource={filteredPets}
-                size="normal"
-                bordered
-                pagination={{ pageSize: 5 }}
-            />
-        </Layout>
-        </Content>
-
-        <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
-        <h2 style={{ marginBottom: "16px", textAlign: 'center' }}>
-            {editingPet ? "Edit Pet" : "Add Pet"}
-        </h2>
-        <p style={{ textAlign: 'center' }}>A pop-up form to quickly add new pet details.</p>
-
-        <Form
-            form={form}
-            layout="horizontal"
-            onFinish={handleSubmit}
-            labelCol={{ flex: '100px'}}
-            wrapperCol={{ flex: 1}}
-            labelAlign="left"
-        >
-            <Form.Item
-            name="name"
-            label="Name"
-            rules={[{ required: true }]}
-            style={{ marginBottom: "12px" }}
-            >
-            <Input placeholder="e.g. Max" />
-            </Form.Item>
-            <Form.Item
-            name="sex"
-            label="Sex"
-            rules={[{ required: true }]}
-            style={{ marginBottom: "12px" }}
-            >
-            <Select
-                placeholder="Select sex"
-                allowClear
-                options={[{ value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }]}
-            />
-            </Form.Item>
-            <Form.Item
-            name="species"
-            label="Species"
-            rules={[{ required: true }]}
-            style={{ marginBottom: "12px" }}
-            >
-              <Select
-                placeholder="Select species"
-                allowClear
-                options={[{ value: 'canine', label: 'Canine' }, { value: 'feline', label: 'Feline' }, { value: 'others', label: 'Others' }]}
-            />
-            </Form.Item>
-            <Form.Item
-            name="owner_id"
-            label="Owner"
-            rules={[{ required: true }]}
-            style={{ marginBottom: "12px" }}
-            >
-              <Select
-                placeholder="Select an owner"
-                allowClear
-                options={users.map(user => ({
-                label: `${user.user_fn} ${user.user_ln}`,  // Adjust this if needed
-                value: user.user_id, // Adjust this field to match the correct user ID
-                }))}
-            />
-            </Form.Item>
-            <Form.Item name="imgurl" label="Image" rules={[{ required: false }]} style={{ marginBottom: 0 }}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <Upload
-                    beforeUpload={handleBeforeUpload}
-                    showUploadList={false}
-                    >
-                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                    {imageBase64 && (
-                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
-                        <img
-                        src={imageBase64}
-                        alt="Uploaded"
-                        style={{
-                            width: "200px",
-                            maxHeight: "200px",
-                            objectFit: "contain",
-                            borderRadius: 5,
-                            marginRight: 10,
-                        }}
-                        />
-                        <Button
-                            type="danger"
-                            onClick={() => {
-                                setImageBase64(null);
-                                form.setFieldsValue({ imgurl: null }); 
-                        }}
-                        >
-                            <DeleteOutlined style={{ color: "red", fontSize:'16px' }} />
-                        </Button>
-                    </div>
-                    )}
+        <Layout style={{ background: "#fefefe", padding: 0 }}>
+            <Content style={{ overflow: "hidden", padding: 35 }}>
+            <h1 className="h1-user">Pet Management</h1>
+            <p>Maintains pet profiles including name, species, breed, age, and owner association.</p>
+            <Divider className='table-divider' style={{ borderColor: "#ddd" }} />
+            <div className="table-top-parent-pet">
+                <div className="header-user">
+                <Input.Search
+                    placeholder="Search pet..."
+                    onChange={(e) => handleSearch(e.target.value)}
+                    value={searchText}
+                    style={{ width: 300 }}
+                    allowClear
+                />
                 </div>
-                <p style={{ color: 'red', marginTop: '8px' }}>Note: Maximum file size is 5MB.</p>
-                </Form.Item>
+                <div className="table-top-search">
+                <Button
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    style={{
+                    height: "35px",
+                    backgroundColor: "#001529",
+                    borderColor: "#001529"
+                    }}
+                    onClick={() => {
+                    setEditingPet(null);
+                    form.resetFields();
+                    setImageBase64(null);
+                    setIsModalOpen(true);
+                    }}
+                >
+                    Add Pet
+                </Button>
+                </div>
+            </div>
+            <Layout style={{ backgroundColor: '#fefefe', borderRadius: 10 }}>
+                <Table
+                    columns={columns}
+                    dataSource={filteredPets}
+                    size="normal"
+                    bordered
+                    pagination={{ pageSize: 5 }}
+                />
+            </Layout>
+            </Content>
 
-            <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
-            <Button
-                type="primary"
-                htmlType="submit"
-                block
-                style={{ backgroundColor: "#001529", borderColor: "#001529" }}
-            >
-                {editingPet ? "Update" : "Add"} Pet
-            </Button>
-            </Form.Item>
-        </Form>
+            <Modal open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null} width={500}>
+                <h2 style={{ marginBottom: "16px", textAlign: 'center' }}>
+                    {editingPet ? "Edit Pet" : "Add Pet"}
+                </h2>
+                <p style={{ textAlign: 'center' }}>A pop-up form to quickly add new pet details.</p>
+
+                <Form
+                    form={form}
+                    layout="horizontal"
+                    onFinish={handleSubmit}
+                    labelCol={{ flex: '100px'}}
+                    wrapperCol={{ flex: 1}}
+                    labelAlign="left"
+                >
+                <Form.Item
+                    name="name"
+                    label="Name"
+                    rules={[{ required: true }]}
+                    style={{ marginBottom: "12px" }}
+                >
+                <Input placeholder="e.g. Max"
+                    onChange={(e) => {
+                        const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                        form.setFieldsValue({ name: lettersOnly });
+                    }}
+                />
+                </Form.Item>
+                <Form.Item
+                    name="sex"
+                    label="Sex"
+                    rules={[{ required: true }]}
+                    style={{ marginBottom: "12px" }}
+                >
+                <Select
+                    placeholder="Select sex"
+                    allowClear
+                    options={[{ value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }]}
+                />
+                </Form.Item>
+                <Form.Item
+                name="species"
+                label="Species"
+                rules={[{ required: true }]}
+                style={{ marginBottom: "12px" }}
+                >
+                    <Select
+                    placeholder="Select species"
+                    allowClear
+                    options={[{ value: 'canine', label: 'Canine' }, { value: 'feline', label: 'Feline' }, { value: 'others', label: 'Others' }]}
+                />
+                </Form.Item>
+                <Form.Item
+                name="owner_id"
+                label="Owner"
+                rules={[{ required: true }]}
+                style={{ marginBottom: "12px" }}
+                >
+                    <Select
+                    placeholder="Select an owner"
+                    allowClear
+                    options={users.map(user => ({
+                    label: `${user.user_fn} ${user.user_ln}`,  // Adjust this if needed
+                    value: user.user_id, // Adjust this field to match the correct user ID
+                    }))}
+                />
+                </Form.Item>
+                <Form.Item name="imgurl" label="Image" rules={[{ required: false }]} style={{ marginBottom: 0 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Upload
+                        beforeUpload={handleBeforeUpload}
+                        showUploadList={false}
+                        >
+                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                        </Upload>
+                        {imageBase64 && (
+                        <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
+                            <img
+                            src={imageBase64}
+                            alt="Uploaded"
+                            style={{
+                                width: "200px",
+                                maxHeight: "200px",
+                                objectFit: "contain",
+                                borderRadius: 5,
+                                marginRight: 10,
+                            }}
+                            />
+                            <Button
+                                type="danger"
+                                onClick={() => {
+                                    setImageBase64(null);
+                                    form.setFieldsValue({ imgurl: null }); 
+                            }}
+                            >
+                                <DeleteOutlined style={{ color: "red", fontSize:'16px' }} />
+                            </Button>
+                        </div>
+                        )}
+                    </div>
+                    <p style={{ color: 'red', marginTop: '8px' }}>Note: Maximum file size is 5MB.</p>
+                    </Form.Item>
+
+                <Form.Item wrapperCol={{ span: 24 }} style={{ marginBottom: 0 }}>
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    block
+                    style={{ backgroundColor: "#001529", borderColor: "#001529" }}
+                >
+                    {editingPet ? "Update" : "Add"} Pet
+                </Button>
+                </Form.Item>
+            </Form>
         </Modal>
     </Layout>
-    </Layout>
+</Layout>
 );
 }
 
