@@ -149,16 +149,19 @@ function ManageVaccines() {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/vaccines/${id}`);
-      message.success("Vaccine deleted successfully");
-      fetchVaccines();
-    } catch (error) {
-      console.error("Error deleting vaccine:", error);
-      message.error("Error deleting vaccine");
-    }
-  };
+const handleDelete = async (id) => {
+  try {
+    await axios.delete(`http://localhost:5000/vaccines/${id}`);
+    message.success("Vaccine deleted successfully");
+    fetchVaccines();
+  } catch (error) {
+    console.error("Delete error:", error.response?.data);
+    message.error(error.response?.data?.error || "Error deleting vaccine");
+  }
+};
+
+
+
 
   const handleSearch = (value) => {
     setSearchText(value);
