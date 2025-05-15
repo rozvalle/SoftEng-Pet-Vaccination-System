@@ -12,7 +12,6 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
-// Get all pets
 router.get("/", async (req, res) => {
   try {
     const query = `
@@ -35,7 +34,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get a pet by ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -59,7 +57,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Get a pet by Owner_ID
 router.get("/owner/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -71,7 +68,6 @@ router.get("/owner/:id", async (req, res) => {
 });
 
 
-// Create a new pet
 router.post("/", async (req, res) => {
   const { owner_id, pet_name, pet_sex, pet_species, pet_img } = req.body;
 
@@ -83,7 +79,7 @@ router.post("/", async (req, res) => {
   if (existingPet.length > 0) {
     return res.status(400).json({ error: "Pet with the same name already exists for this owner" });
   }
-  
+
   const query = `
     INSERT INTO tbl_pets (owner_id, pet_name, pet_sex, pet_species, pet_img)
     VALUES (?, ?, ?, ?, ?)
@@ -97,7 +93,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Delete a pet
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -114,7 +109,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Update a pet
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { owner_id, pet_name, pet_sex, pet_img, pet_species } = req.body;
@@ -142,7 +136,7 @@ router.put("/:id", async (req, res) => {
 
     res.status(200).json({ message: "Pet updated successfully" });
   } catch (error) {
-    console.error(error);  // Log the error
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

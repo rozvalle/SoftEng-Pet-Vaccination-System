@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require("mysql2/promise");
-const router =  express.Router();
+const router = express.Router();
 
 const db = mysql.createPool({
   host: "localhost",

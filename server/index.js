@@ -5,16 +5,13 @@ const usersRoutes = require("./routes/users");
 const vaccinesRoutes = require("./routes/vaccines");
 const petsRoutes = require("./routes/pets");
 const vaccinationsRoutes = require("./routes/vaccinations");
-
-
-
 const app = express();
+
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
-
 
 const db = mysql.createPool({
   host: "localhost",
@@ -49,7 +46,7 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Invalid username or password" });
     }
 
-    res.status(200).json({ message: "Login successful", token: "sample-token-123" }); 
+    res.status(200).json({ message: "Login successful", token: "sample-token-123" });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -73,7 +70,7 @@ app.get('/dashboard/counts', async (req, res) => {
 
 app.get("/details/vaccinations/:id", async (req, res) => {
   try {
-    const { id } = req.params; // Extract id from request body
+    const { id } = req.params;
     const query = `
       SELECT 
       H.history_id,
@@ -90,7 +87,7 @@ app.get("/details/vaccinations/:id", async (req, res) => {
       WHERE U.USER_ID = ?
       ORDER BY H.HISTORY_ID ASC
     `;
-    const [result] = await db.query(query, [id]); // Pass id as a parameter to the query
+    const [result] = await db.query(query, [id]);
     console.log(result);
     res.json(result);
   } catch (err) {
@@ -100,7 +97,7 @@ app.get("/details/vaccinations/:id", async (req, res) => {
 
 app.get("/pets/vaccinations/:id", async (req, res) => {
   try {
-    const { id } = req.params; // Extract id from request body
+    const { id } = req.params;
     const query = `
       SELECT 
       H.history_id,
@@ -112,7 +109,7 @@ app.get("/pets/vaccinations/:id", async (req, res) => {
       WHERE H.pet_id = ?
       ORDER BY H.HISTORY_ID ASC
     `;
-    const [result] = await db.query(query, [id]); // Pass id as a parameter to the query
+    const [result] = await db.query(query, [id]);
     console.log(result);
     res.json(result);
   } catch (err) {

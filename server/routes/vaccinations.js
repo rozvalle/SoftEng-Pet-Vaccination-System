@@ -12,7 +12,6 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
-// Get all vaccine histories
 router.get("/", async (req, res) => {
   try {
     const query = `
@@ -35,12 +34,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get a vaccine history by history ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await db.query(
-      "SELECT * FROM tbl_vaccinehistory WHERE history_id = ?", 
+      "SELECT * FROM tbl_vaccinehistory WHERE history_id = ?",
       [id]
     );
     res.json(result);
@@ -49,12 +47,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Get vaccine history by Pet ID
 router.get("/pet/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await db.query(
-      "SELECT * FROM tbl_vaccinehistory WHERE pet_id = ?", 
+      "SELECT * FROM tbl_vaccinehistory WHERE pet_id = ?",
       [id]
     );
     res.json(result);
@@ -63,11 +60,9 @@ router.get("/pet/:id", async (req, res) => {
   }
 });
 
-// Create a new vaccine history
 router.post("/", async (req, res) => {
   const { pet_id, vaccine_id, date_administered } = req.body;
 
-  console.log("Adding vaccine history:", req.body); // Debugging line
   const query = `
     INSERT INTO tbl_vaccinehistory (pet_id, vaccine_id, date_administered)
     VALUES (?, ?, ?)
@@ -81,13 +76,12 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Delete a vaccine history
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
     const [result] = await db.query(
-      "DELETE FROM tbl_vaccinehistory WHERE history_id = ?", 
+      "DELETE FROM tbl_vaccinehistory WHERE history_id = ?",
       [id]
     );
 
@@ -101,7 +95,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Update a vaccine history
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { pet_id, vaccine_id, date_administered } = req.body;
