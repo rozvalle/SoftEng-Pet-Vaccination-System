@@ -63,6 +63,16 @@ router.get("/pet/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { pet_id, vaccine_id, date_administered } = req.body;
 
+  const checkQuery = `
+      SELECT * FROM tbl_vaccinehistory
+      WHERE pet_id = ? AND date_administered = ? AND vaccine_id = ?
+    `;
+  const [existing] = await db.query(checkQuery, [pet_id, date_administered, vaccine_id]);
+
+  if (existing.length > 0) {
+    return res.status(400).json({ error: "Vaccination already recorded for this pet on the same date" });
+  }
+
   const query = `
     INSERT INTO tbl_vaccinehistory (pet_id, vaccine_id, date_administered)
     VALUES (?, ?, ?)
@@ -98,6 +108,16 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { pet_id, vaccine_id, date_administered } = req.body;
+
+  const checkQuery = `
+      SELECT * FROM tbl_vaccinehistory
+      WHERE pet_id = ? AND date_administered = ? AND vaccine_id = ?
+    `;
+  const [existing] = await db.query(checkQuery, [pet_id, date_administered, vaccine_id]);
+
+  if (existing.length > 0) {
+    return res.status(400).json({ error: "Vaccination already recorded for this pet on the same date" });
+  }
 
   const query = `
     UPDATE tbl_vaccinehistory
