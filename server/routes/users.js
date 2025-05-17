@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
   const { user_fn, user_ln, user_mn, username, password } = req.body;
 
   const [existingUsers] = await db.query(
-    "SELECT user_id FROM tbl_users WHERE user_name = ?",
+    "SELECT user_id FROM tbl_users WHERE BINARY user_name = ?",
     [username]
   );
 
