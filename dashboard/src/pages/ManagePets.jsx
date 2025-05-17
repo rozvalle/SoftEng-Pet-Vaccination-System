@@ -317,7 +317,7 @@ function ManagePets() {
                         <Form.Item
                             name="owner_id"
                             label="Owner"
-                            rules={[{ required: true }]}
+                            rules={[{ required: true, message: "'owner' is required" }]}
                             style={{ marginBottom: "12px" }}
                         >
                             <Select
