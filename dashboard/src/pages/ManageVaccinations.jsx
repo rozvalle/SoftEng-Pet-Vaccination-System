@@ -234,7 +234,7 @@ function ManageVaccinations() {
                         <Form.Item
                             name="vaccine_id"
                             label="Vaccine Name"
-                            rules={[{ required: true }]}
+                            rules={[{ required: true, message: "'Vaccine' is required" }]}
                             style={{ marginBottom: "12px" }}
                             className="label-text"
                         >
@@ -251,7 +251,7 @@ function ManageVaccinations() {
                         <Form.Item
                             name="date_administered"
                             label="Date Administered"
-                            rules={[{ required: true }]}
+                            rules={[{ required: true, message: "'Date' is required" }]}
                             style={{ marginBottom: "12px" }}
                         >
                             <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
@@ -260,7 +260,7 @@ function ManageVaccinations() {
                         <Form.Item
                             name="pet_id"
                             label="Pet"
-                            rules={[{ required: true }]}
+                            rules={[{ required: true, message: "'Pet' is required" }]}
                             style={{ marginBottom: "12px" }}
                         >
                             <Select
