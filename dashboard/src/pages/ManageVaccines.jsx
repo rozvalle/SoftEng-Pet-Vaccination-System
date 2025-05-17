@@ -113,10 +113,6 @@ function ManageVaccines() {
   };
 
   const handleSubmit = async (values) => {
-    if (!imageBase64) {
-      message.error("Please upload an image");
-      return;
-    }
 
     try {
       const userData = {
@@ -252,7 +248,7 @@ function ManageVaccines() {
             form={form}
             layout="horizontal"
             onFinish={handleSubmit}
-            labelCol={{ flex: '110px' }}
+            labelCol={{ flex: '120px' }}
             wrapperCol={{ flex: 1 }}
             labelAlign="left"
           >
@@ -267,7 +263,6 @@ function ManageVaccines() {
             <Form.Item
               name="description"
               label="Description"
-              rules={[{ required: true }]}
               style={{ marginBottom: "24px" }}
             >
               <Input.TextArea
@@ -281,17 +276,12 @@ function ManageVaccines() {
               name="manufacturer"
               label="Manufacturer"
               style={{ marginBottom: "12px" }}
+              rules={[{ required: true }]}
             >
-              <Input placeholder="e.g. MSD Animal Health"
-                onChange={(e) => {
-                  const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
-                  form.setFieldsValue({ manufacturer: lettersOnly });
-                }}
-              />
+              <Input placeholder="e.g. MSD Animal Health" />
             </Form.Item>
             <Form.Item
               label="Image"
-              required
               style={{ marginBottom: "24px" }}
             >
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -301,20 +291,30 @@ function ManageVaccines() {
                 >
                   <Button icon={<UploadOutlined />}>Click to Upload</Button>
                 </Upload>
-                <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
-                  {imageBase64 && (
-                    <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, width: "200px", maxHeight: "200px", objectFit: "contain", borderRadius: 5 }} />
-                  )}
-                  <Button
-                    type="danger"
-                    onClick={() => {
-                      setImageBase64(null);
-                      form.setFieldsValue({ imgurl: null });
-                    }}
-                  >
-                    <DeleteOutlined style={{ color: "red", fontSize: '16px' }} />
-                  </Button>
-                </div>
+                {imageBase64 && (
+                  <div style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
+                    <img
+                      src={imageBase64}
+                      alt="Uploaded"
+                      style={{
+                        width: "200px",
+                        maxHeight: "200px",
+                        objectFit: "contain",
+                        borderRadius: 5,
+                        marginRight: 10,
+                      }}
+                    />
+                    <Button
+                      type="danger"
+                      onClick={() => {
+                        setImageBase64(null);
+                        form.setFieldsValue({ imgurl: null });
+                      }}
+                    >
+                      <DeleteOutlined style={{ color: "red", fontSize: '16px' }} />
+                    </Button>
+                  </div>
+                )}
               </div>
               <p style={{ color: 'red', marginTop: '8px', marginBottom: '-10px' }}>Note: Maximum file size is 5MB.</p>
             </Form.Item>
