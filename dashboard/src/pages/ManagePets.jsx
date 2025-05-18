@@ -17,7 +17,15 @@ function ManagePets() {
     const [users, setUsers] = useState([]);
     const [imageBase64, setImageBase64] = useState(null);
 
-    // Function to convert image file to base64
+    const handleSearch = (value) => {
+        setSearchText(value);
+        const filtered = pets.filter(
+            (pet) =>
+                pet.pet_name.toLowerCase().includes(value.toLowerCase())
+        );
+        setFilteredPets(filtered);
+    };
+
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
